@@ -1,1 +1,1543 @@
-# ZERAFET
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerafet Moda Evi - Şalvar & Geleneksel Giyim</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        #lightboxImgContainer {
+            overflow: hidden;
+            cursor: grab;
+            touch-action: none;
+        }
+        #lightboxImgContainer:active {
+            cursor: grabbing;
+        }
+        #lightboxImg {
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-purple-200 selection:text-purple-900">
+
+    <!-- ANA SİTE GÖRÜNÜMÜ -->
+    <div id="mainWebsiteView">
+        <div id="topBanner" class="bg-purple-900 text-purple-100 text-xs sm:text-sm py-2 px-4 text-center font-medium">
+            ✨ <span>Sezon Açılışına Özel Tüm Şalvar Modellerinde Kargo Bedava!</span> ✨
+        </div>
+
+        <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <a href="#" class="flex items-center gap-2">
+                    <span class="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-purple-950">ZERAFET</span>
+                    <span class="text-xs uppercase tracking-widest bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full font-semibold">Moda Evi</span>
+                </a>
+                
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
+                    <a href="#" class="hover:text-purple-950 transition">Ana Sayfa</a>
+                    <a href="#urunler" class="hover:text-purple-950 transition">Koleksiyon</a>
+                    <a href="#iletisim" class="hover:text-purple-950 transition">İletişim</a>
+                </nav>
+
+                <div class="flex items-center gap-3">
+                    <div id="navAuthArea">
+                        <button onclick="openAuthModal()" class="flex items-center gap-2 text-xs sm:text-sm font-medium bg-purple-950 text-white px-5 py-2.5 rounded-full hover:bg-purple-900 transition shadow-sm">
+                            <i class="fa-regular fa-user"></i> Üye Girişi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="heroSection" class="relative bg-stone-900 text-white overflow-hidden py-24 sm:py-32 bg-cover" style="background-image: url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=1600&auto=format&fit=crop'); background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-transparent"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-2xl">
+                    <span id="heroSubtitle" class="text-purple-300 text-xs sm:text-sm uppercase tracking-widest font-semibold block mb-3">Geleneksel Dokunuş, Modern Zarafet</span>
+                    <h1 id="heroTitle" class="font-serif text-4xl sm:text-6xl font-bold tracking-tight mb-6 leading-tight">Özenle Dikilen Geleneksel Şalvar Koleksiyonu</h1>
+                    <p id="heroDesc" class="text-stone-300 text-base sm:text-lg mb-8 font-light">Rahatlığı ve şıklığı bir arada arayanlar için birinci sınıf kumaşlardan üretilen özel tasarım şalvarlar ve kombinler Zerafet Moda Evi'nde.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#urunler" class="bg-purple-900 hover:bg-purple-800 text-white font-medium px-8 py-3.5 rounded-full transition shadow-lg inline-flex items-center gap-2">
+                            Koleksiyonu İncele <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main id="urunler" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-purple-800 text-xs uppercase tracking-widest font-bold">Özel Seçki</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 mt-1">Şalvar & Giyim Modellerimiz</h2>
+                </div>
+            </div>
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </main>
+
+        <section id="iletisim" class="bg-white border-t border-stone-200 py-20">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <span class="text-purple-800 text-xs uppercase tracking-widest font-bold">Zerafet Moda Evi</span>
+                <h2 class="font-serif text-3xl font-bold text-stone-900 mt-1 mb-4">Bizimle İletişime Geçin</h2>
+                <p class="text-stone-600 text-sm mb-8">Sorularınız, toplu siparişleriniz veya bayilik başvurularınız için bizimle her zaman iletişime geçebilirsiniz.</p>
+                <div class="flex flex-wrap justify-center gap-8 text-sm text-stone-700">
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-phone text-purple-800 text-lg"></i> <span id="contactPhone">+90 (555) 123 45 67</span></div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-envelope text-purple-800 text-lg"></i> <span id="contactEmail">bilgi@zerafetmodaevi.com</span></div>
+                    <div class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-purple-800 text-lg"></i> <span id="contactAddress">Merkez / Türkiye</span></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-stone-950 text-stone-400 py-12 text-center text-sm border-t border-stone-900">
+            <p>&copy; 2026 Zerafet Moda Evi. Tüm hakları saklıdır.</p>
+        </footer>
+    </div>
+
+    <!-- TAM EKRAN YÖNETİCİ PANELİ SAYFASI -->
+    <div id="adminPageView" class="hidden min-h-screen bg-stone-100 p-2 sm:p-8">
+        <div class="max-w-6xl mx-auto space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs uppercase tracking-widest font-bold text-purple-800 bg-purple-100 px-2 py-0.5 rounded">Ana Kontrol Merkezi</span>
+                    <h1 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-1">Zerafet Moda Evi Yönetim Paneli</h1>
+                </div>
+                <button onclick="exitAdminToHome()" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-medium px-5 py-2.5 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap & Ana Sayfaya Dön
+                </button>
+            </div>
+
+            <div class="flex overflow-x-auto gap-2 bg-white p-3 rounded-xl border border-stone-200 shadow-sm">
+                <button onclick="switchAdminTab('settings')" id="tabBtnSettings" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-purple-950 text-white transition">Site Ayarları</button>
+                <button onclick="switchAdminTab('categories')" id="tabBtnCategories" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition">Kategoriler</button>
+                <button onclick="switchAdminTab('products')" id="tabBtnProducts" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition">Ürün Yönetimi</button>
+                <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition">Üye Listesi (<span id="userCountBadge">0</span>)</button>
+                <button onclick="switchAdminTab('formfields')" id="tabBtnFormfields" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition">Üyelik Alanları</button>
+            </div>
+
+            <!-- SİTE AYARLARI -->
+            <div id="adminTabSettings" class="space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                    <h3 class="font-bold text-stone-900 text-lg">Ana Sayfa & Hero Alanı Taslak Görünümü</h3>
+                    
+                    <div class="bg-purple-50/60 p-4 rounded-xl border border-purple-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h4 class="font-bold text-purple-950 text-sm">💡 Fotoğraf Odak Ayarı (Mouse Tekeri / Kaydırma)</h4>
+                            <p class="text-xs text-stone-600">Ön izleme kutusunun üzerine gelip fare tekerleğini çevirerek veya kaydırma çubuğunu kullanarak odak konumunu ayarlayabilirsiniz.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="adjustPositionValue(-10)" class="bg-white border border-purple-200 px-3 py-1.5 rounded-lg text-xs font-bold text-purple-900 hover:bg-purple-100 transition"><i class="fa-solid fa-arrow-up"></i> Yukarı</button>
+                            <button type="button" onclick="adjustPositionValue(10)" class="bg-white border border-purple-200 px-3 py-1.5 rounded-lg text-xs font-bold text-purple-900 hover:bg-purple-100 transition"><i class="fa-solid fa-arrow-down"></i> Aşağı</button>
+                        </div>
+                    </div>
+
+                    <div id="heroPreviewBox" class="relative rounded-2xl overflow-hidden bg-stone-900 text-white p-6 sm:p-12 bg-cover shadow-lg border border-stone-300" style="background-image: url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=1600&auto=format&fit=crop'); background-position: center 50%;" onwheel="handleHeroWheel(event)">
+                        <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-transparent pointer-events-none"></div>
+                        <div class="relative max-w-xl pointer-events-none">
+                            <span class="text-purple-300 text-xs uppercase tracking-widest font-semibold block mb-2">Canlı Hero Taslak Önizlemesi</span>
+                            <h2 id="previewTitle" class="font-serif text-xl sm:text-4xl font-bold mb-3">Özenle Dikilen Geleneksel Şalvar Koleksiyonu</h2>
+                            <p id="previewDesc" class="text-stone-300 text-sm mb-6 font-light">Rahatlığı ve şıklığı bir arada arayanlar için birinci sınıf kumaşlar...</p>
+                            <span class="inline-block bg-purple-900 text-white text-xs font-semibold px-5 py-2.5 rounded-full">Koleksiyonu İncele</span>
+                        </div>
+                    </div>
+
+                    <form onsubmit="saveSiteSettings(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-stone-100">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Banner Yazısı</label>
+                            <input type="text" id="setBanner" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Hero Fotoğraf URL veya Bilgisayardan Yükle</label>
+                            <div class="flex gap-2">
+                                <input type="url" id="setHeroImg" required oninput="updateHeroPreview()" class="flex-grow px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                                <label class="cursor-pointer bg-purple-900 hover:bg-purple-800 text-white px-4 py-3 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap">
+                                    <i class="fa-solid fa-upload"></i> Dosya Seç
+                                    <input type="file" accept="image/*" class="hidden" onchange="handleHeroLocalFile(event)">
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Dikey Odak Konumu (%)</label>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="setHeroPosY" min="0" max="100" value="50" oninput="updateHeroPreview()" class="w-full accent-purple-900">
+                                <span id="posYValueText" class="text-xs font-bold text-purple-950 w-12 text-right">50%</span>
+                            </div>
+                            <span class="text-[10px] text-stone-400 mt-1 block">0%: En Üst • 50%: Orta • 100%: En Alt</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Ana Başlık</label>
+                            <input type="text" id="setHeroTitle" required oninput="updateHeroPreview()" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Alt Açıklama</label>
+                            <input type="text" id="setHeroDesc" required oninput="updateHeroPreview()" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Telefon</label>
+                            <input type="text" id="setPhone" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">E-posta</label>
+                            <input type="email" id="setEmail" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Adres</label>
+                            <input type="text" id="setAddress" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <button type="submit" class="w-full sm:w-auto bg-purple-950 hover:bg-purple-900 text-white font-medium px-8 py-3 rounded-xl text-sm transition shadow-sm">Değişiklikleri Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- KATEGORİLER -->
+            <div id="adminTabCategories" class="hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="font-bold text-stone-900 text-lg mb-4">Yeni Kategori Ekle</h3>
+                    <form onsubmit="addNewCategory(event)" class="flex flex-col sm:flex-row gap-4">
+                        <input type="text" id="newCategoryName" required placeholder="Kategori adı..." class="flex-grow px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        <button type="submit" class="bg-purple-950 hover:bg-purple-900 text-white font-medium px-8 py-3 rounded-xl text-sm transition">Ekle</button>
+                    </form>
+                </div>
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="font-bold text-stone-900 text-lg mb-4">Mevcut Kategoriler</h3>
+                    <div id="adminCategoryList" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- ÜRÜN YÖNETİMİ -->
+            <div id="adminTabProducts" class="hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 id="productFormTitle" class="font-bold text-stone-900 text-lg mb-6">Yeni Şalvar Ekle & Fotoğraf Yükle</h3>
+                    <form onsubmit="handleProductSubmit(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <input type="hidden" id="editProductId" value="">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Ürün Adı</label>
+                            <input type="text" id="newTitle" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Kategori</label>
+                            <select id="newCategory" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm bg-white"></select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Fiyat (TL)</label>
+                            <input type="number" id="newPrice" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+
+                        <div class="sm:col-span-2 bg-stone-50 p-4 sm:p-6 rounded-xl border border-stone-200 space-y-4">
+                            <label class="block text-xs font-bold text-stone-700 uppercase">Fotoğraf Yönetimi (Tek Tek veya Toplu Ekle)</label>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                                <label class="cursor-pointer bg-purple-900 hover:bg-purple-800 text-white text-xs font-bold px-5 py-3 rounded-xl transition inline-flex items-center gap-2">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Bilgisayardan Fotoğraf Seç (Çoklu)
+                                    <input type="file" id="localImageInput" multiple accept="image/*" class="hidden" onchange="handleLocalFiles(event)">
+                                </label>
+                                <span class="text-xs text-stone-500">Seçilen fotoğraflar otomatik eklenir.</span>
+                            </div>
+
+                            <div>
+                                <span class="text-xs font-semibold text-stone-600 block mb-2">Mevcut Ürün Fotoğrafları (Tek Tek İncele & Sil):</span>
+                                <div id="adminThumbnailsContainer" class="flex flex-wrap gap-3"></div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Veya Fotoğraf URL'leri Ekle (Virgülle ayırın)</label>
+                                <textarea id="newImgs" rows="2" placeholder="https://resim1.jpg, https://resim2.jpg..." class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm bg-white"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Açıklama</label>
+                            <textarea id="newDesc" rows="3" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm"></textarea>
+                        </div>
+
+                        <div class="sm:col-span-2 bg-purple-50/50 p-4 sm:p-6 rounded-xl border border-purple-100 space-y-4">
+                            <label class="block text-xs font-bold text-purple-950 uppercase">Beden Seçimi & Ölçü Tanımlama (Tıklayarak Ekle / Kaldır)</label>
+                            <div class="flex flex-wrap gap-2">
+                                <button type="button" onclick="toggleSizeSelection('S')" id="sizeBtn-S" class="px-4 py-2 rounded-xl font-bold text-xs border border-stone-300 bg-white text-stone-700 transition">S Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('M')" id="sizeBtn-M" class="px-4 py-2 rounded-xl font-bold text-xs border border-stone-300 bg-white text-stone-700 transition">M Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('L')" id="sizeBtn-L" class="px-4 py-2 rounded-xl font-bold text-xs border border-stone-300 bg-white text-stone-700 transition">L Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('XL')" id="sizeBtn-XL" class="px-4 py-2 rounded-xl font-bold text-xs border border-stone-300 bg-white text-stone-700 transition">XL Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('XXL')" id="sizeBtn-XXL" class="px-4 py-2 rounded-xl font-bold text-xs border border-stone-300 bg-white text-stone-700 transition">XXL Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('Standart')" id="sizeBtn-Standart" class="px-4 py-2 rounded-xl font-bold text-xs border border-stone-300 bg-white text-stone-700 transition">Standart Ölçü</button>
+                            </div>
+                            <div id="selectedSizesDetailContainer" class="space-y-3 pt-2"></div>
+                        </div>
+
+                        <div class="sm:col-span-2 flex flex-col sm:flex-row gap-4">
+                            <button type="submit" id="productSubmitBtn" class="w-full sm:w-auto bg-purple-950 text-white font-medium px-8 py-3 rounded-xl text-sm transition">Ürünü Kaydet</button>
+                            <button type="button" id="cancelEditBtn" onclick="resetProductForm()" class="hidden w-full sm:w-auto bg-stone-300 text-stone-800 font-medium px-8 py-3 rounded-xl text-sm transition">İptal</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="font-bold text-stone-900 text-lg mb-4">Mevcut Ürün Listesi</h3>
+                    <div id="adminProductList" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- ÜYE LİSTESİ -->
+            <div id="adminTabUsers" class="hidden space-y-6">
+                <div id="adminUserEditCard" class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm hidden">
+                    <h3 class="font-bold text-stone-900 text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-purple-800"></i> Üye Bilgilerini Düzenle</h3>
+                    <form onsubmit="handleAdminUserUpdate(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <input type="hidden" id="adminEditUserId" value="">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Ad Soyad</label>
+                            <input type="text" id="adminEditName" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">E-posta Adresi</label>
+                            <input type="email" id="adminEditEmail" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Telefon Numarası (Zorunlu)</label>
+                            <input type="tel" id="adminEditPhone" required placeholder="+90 (5xx)..." class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Şifre</label>
+                            <input type="text" id="adminEditPass" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">İl / İlçe</label>
+                            <input type="text" id="adminEditCity" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Açık Adres</label>
+                            <textarea id="adminEditAddress" rows="2" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm"></textarea>
+                        </div>
+                        <div class="sm:col-span-2 flex flex-col sm:flex-row gap-4">
+                            <button type="submit" class="w-full sm:w-auto bg-purple-950 text-white font-medium px-8 py-3 rounded-xl text-sm transition">Değişiklikleri Kaydet</button>
+                            <button type="button" onclick="cancelAdminUserEdit()" class="w-full sm:w-auto bg-stone-300 text-stone-800 font-medium px-8 py-3 rounded-xl text-sm transition">İptal</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="font-bold text-stone-900 text-lg mb-2">Kayıtlı Üyeler Listesi</h3>
+                    <p class="text-stone-500 text-sm mb-6">Siteden kayıt olan tüm üyelerin detaylarını buradan inceleyebilir ve düzenleyebilirsiniz.</p>
+                    <div id="adminUserList" class="space-y-4"></div>
+                </div>
+            </div>
+
+            <!-- ÜYELİK ALANLARI YÖNETİMİ -->
+            <div id="adminTabFormfields" class="hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                    <div>
+                        <h3 class="font-bold text-stone-900 text-lg mb-1">Üyelik Formu Alanları Yönetimi</h3>
+                        <p class="text-xs text-stone-500">Üye olurken istenecek yeni form alanları ekleyebilir, mevcut alanları silebilir veya aktif/pasif yapabilirsiniz.</p>
+                    </div>
+
+                    <form onsubmit="addNewFormField(event)" class="bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col sm:flex-row gap-4 items-end">
+                        <div class="flex-grow w-full">
+                            <label class="block text-xs font-bold text-purple-950 uppercase mb-1">Alan Etiketi (Görünen Ad)</label>
+                            <input type="text" id="newFieldLabel" required placeholder="Örn: T.C. Kimlik No..." class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm bg-white">
+                        </div>
+                        <div class="w-full sm:w-48">
+                            <label class="block text-xs font-bold text-purple-950 uppercase mb-1">Alan Tipi</label>
+                            <select id="newFieldType" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm bg-white">
+                                <option value="text">Yazı (Text)</option>
+                                <option value="number">Sayı (Number)</option>
+                                <option value="date">Tarih (Date)</option>
+                                <option value="tel">Telefon (Tel)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full sm:w-auto bg-purple-950 hover:bg-purple-900 text-white font-medium px-6 py-2.5 rounded-xl text-sm transition">Yeni Alan Ekle</button>
+                    </form>
+
+                    <div id="formFieldsConfigList" class="space-y-3 pt-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÜRÜN DETAY MODALI -->
+    <div id="productModal" class="fixed inset-0 z-50 bg-stone-950/80 backdrop-blur-md hidden items-center justify-center p-0 sm:p-4">
+        <div class="bg-white rounded-none sm:rounded-3xl w-full h-full sm:h-auto sm:max-h-[96vh] max-w-7xl overflow-y-auto shadow-2xl relative grid grid-cols-1 lg:grid-cols-12">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-12 h-12 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-700 transition shadow-md">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="lg:col-span-7 p-4 sm:p-10 bg-stone-100 flex flex-col justify-between rounded-none sm:rounded-l-3xl">
+                <div class="rounded-2xl overflow-hidden bg-white shadow-md aspect-[4/5] flex items-center justify-center cursor-pointer group relative" onclick="openLightbox(document.getElementById('modalMainImg').src)">
+                    <img id="modalMainImg" src="" alt="Ürün" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold text-sm gap-2">
+                        <i class="fa-solid fa-expand text-xl"></i> Fotoğrafı Büyüt & İncele
+                    </div>
+                </div>
+                <div id="modalThumbnails" class="flex gap-3 mt-4 overflow-x-auto pb-2"></div>
+                <p class="text-xs text-stone-500 text-center mt-2 font-medium">💡 Fotoğrafa dokunarak tam ekran büyütebilirsiniz.</p>
+            </div>
+            <div class="lg:col-span-5 p-6 sm:p-12 flex flex-col justify-between">
+                <div>
+                    <span id="modalCategory" class="text-xs uppercase tracking-widest font-bold text-purple-800 bg-purple-100 px-3 py-1 rounded-md">Kategori</span>
+                    <h3 id="modalTitle" class="font-serif text-2xl sm:text-4xl font-bold text-stone-900 mt-4">Ürün Adı</h3>
+                    <p id="modalPrice" class="text-2xl font-bold text-purple-950 mt-3">0.00 TL</p>
+                    <p id="modalDesc" class="text-stone-600 text-sm sm:text-base mt-6 leading-relaxed">Açıklama.</p>
+                    <div class="mt-8">
+                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-3">Beden Seçiniz:</label>
+                        <div id="modalSizes" class="flex flex-wrap gap-3"></div>
+                    </div>
+                    <div id="sizeGuideBox" class="mt-6 p-4 bg-amber-50/60 border border-amber-200/60 rounded-xl text-xs text-stone-700 leading-relaxed"></div>
+                </div>
+                <div class="mt-8 pt-6 border-t border-stone-200 flex flex-col sm:flex-row gap-4">
+                    <button onclick="addToCartFromModal()" class="flex-1 bg-stone-900 hover:bg-stone-800 text-white font-semibold py-4 px-6 rounded-2xl transition flex items-center justify-center gap-2 text-sm shadow-lg">
+                        <i class="fa-solid fa-cart-shopping text-base"></i> Sepete Ekle
+                    </button>
+                    <button onclick="orderViaWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-4 px-6 rounded-2xl transition flex items-center justify-center gap-2 text-sm shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Sipariş
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAM EKRAN FOTOĞRAF (TEKERLE ZOOM & FARE İLE HAREKET ETTİRME) -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-lg hidden items-center justify-center p-0 overflow-hidden" onclick="closeLightbox(event)">
+        <button onclick="closeLightbox(event)" class="absolute top-6 right-6 z-50 text-white text-3xl w-14 h-14 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition shadow-2xl">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div id="lightboxImgContainer" class="w-full h-full flex items-center justify-center relative overflow-hidden" onclick="event.stopPropagation()">
+            <img id="lightboxImg" src="" class="max-h-[90vh] max-w-[90vw] object-contain rounded-xl shadow-2xl">
+        </div>
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md text-white text-xs px-4 py-2 rounded-full pointer-events-none z-50">
+            💡 Fare tekerleği ile büyütebilir, basılı tutup sürükleyerek hareket ettirebilirsiniz
+        </div>
+    </div>
+
+    <!-- GİRİŞ & KAYIT MODALI -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-stone-950/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="loginView">
+                <h3 class="font-serif text-2xl font-bold text-stone-900 mb-2">Üye Girişi</h3>
+                <p class="text-stone-500 text-sm mb-6">Hesabınıza güvenle giriş yapın.</p>
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Kullanıcı Adı / E-posta</label>
+                        <input type="text" id="loginUser" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Şifre</label>
+                        <input type="password" id="loginPass" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                    </div>
+                    <button type="submit" class="w-full bg-purple-950 hover:bg-purple-900 text-white font-medium py-3 rounded-xl transition shadow-sm">Giriş Yap</button>
+                </form>
+                <div class="mt-4 text-center text-xs text-stone-500">
+                    Hesabınız yok mu? <button onclick="switchAuthView('register')" class="text-purple-800 font-bold hover:underline">Yeni Üyelik Oluştur</button>
+                </div>
+            </div>
+            <div id="registerView" class="hidden">
+                <h3 class="font-serif text-2xl font-bold text-stone-900 mb-2">Yeni Üyelik Oluştur</h3>
+                <p class="text-stone-500 text-sm mb-6">Tüm alanların doldurulması zorunludur.</p>
+                <form onsubmit="handleRegister(event)" id="dynamicRegisterForm" class="space-y-4 max-h-[60vh] overflow-y-auto pr-1"></form>
+                <div class="mt-4 text-center text-xs text-stone-500">
+                    Zaten hesabınız var mı? <button onclick="switchAuthView('login')" class="text-purple-800 font-bold hover:underline">Giriş Yap</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÜŞTERİ PANELİ -->
+    <div id="customerPortalModal" class="fixed inset-0 z-50 bg-stone-950/80 backdrop-blur-sm hidden items-center justify-center p-0 sm:p-4">
+        <div class="bg-stone-50 rounded-none sm:rounded-2xl w-full h-full sm:h-auto sm:max-h-[90vh] max-w-4xl overflow-y-auto shadow-2xl relative p-4 sm:p-8">
+            <div class="flex items-center justify-between pb-6 border-b border-stone-200 mb-6">
+                <div>
+                    <span id="portalUserBadge" class="text-xs uppercase tracking-widest font-bold text-purple-800 bg-purple-100 px-2 py-0.5 rounded">Müşteri Paneli</span>
+                    <h2 id="portalUserName" class="font-serif text-2xl font-bold text-stone-900 mt-1">Hesabım</h2>
+                </div>
+                <button onclick="closeCustomerPortal()" class="w-10 h-10 rounded-full bg-stone-200 hover:bg-stone-300 flex items-center justify-center text-stone-700 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="flex overflow-x-auto gap-2 border-b border-stone-200 mb-6 pb-2">
+                <button onclick="switchPortalTab('orders')" id="portalBtnOrders" class="whitespace-nowrap px-4 py-2 rounded-lg font-bold text-sm bg-purple-950 text-white transition"><i class="fa-solid fa-box-open mr-1"></i> Siparişlerim</button>
+                <button onclick="switchPortalTab('cart')" id="portalBtnCart" class="whitespace-nowrap px-4 py-2 rounded-lg font-bold text-sm bg-stone-200 text-stone-700 transition"><i class="fa-solid fa-cart-shopping mr-1"></i> Sepetim</button>
+                <button onclick="switchPortalTab('profile')" id="portalBtnProfile" class="whitespace-nowrap px-4 py-2 rounded-lg font-bold text-sm bg-stone-200 text-stone-700 transition"><i class="fa-solid fa-user-gear mr-1"></i> Bilgilerim</button>
+                <button onclick="switchPortalTab('address')" id="portalBtnAddress" class="whitespace-nowrap px-4 py-2 rounded-lg font-bold text-sm bg-stone-200 text-stone-700 transition"><i class="fa-solid fa-location-dot mr-1"></i> Adreslerim</button>
+            </div>
+            <div id="portalTabOrders" class="space-y-4">
+                <h3 class="font-bold text-stone-900 mb-2">Geçmiş Siparişlerim</h3>
+                <div id="customerOrdersList" class="space-y-3"></div>
+            </div>
+            <div id="portalTabCart" class="hidden space-y-4">
+                <h3 class="font-bold text-stone-900 mb-2">Sepetimdeki Ürünler</h3>
+                <div id="customerCartList" class="space-y-3"></div>
+                <div id="cartSummaryBox" class="bg-white p-4 rounded-xl border border-stone-200 flex flex-col sm:flex-row justify-between items-center gap-4 mt-4">
+                    <span class="font-bold text-stone-700">Toplam Tutar: <strong id="cartTotalPrice" class="text-purple-950 text-lg">0 TL</strong></span>
+                    <button onclick="checkoutCart()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 py-2.5 rounded-xl text-sm transition shadow-sm">Siparişi Tamamla (WhatsApp)</button>
+                </div>
+            </div>
+            <div id="portalTabProfile" class="hidden space-y-4">
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm max-w-lg">
+                    <h3 class="font-bold text-stone-900 mb-4">Profil Bilgileri</h3>
+                    <form onsubmit="updateUserProfile(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Ad Soyad</label>
+                            <input type="text" id="profileName" required class="w-full px-3 py-2 rounded-lg border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-1">E-posta</label>
+                            <input type="email" id="profileEmail" required class="w-full px-3 py-2 rounded-lg border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Telefon Numarası (Zorunlu)</label>
+                            <input type="tel" id="profilePhone" required class="w-full px-3 py-2 rounded-lg border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Şifre</label>
+                            <input type="password" id="profilePass" required class="w-full px-3 py-2 rounded-lg border border-stone-300 text-sm">
+                        </div>
+                        <button type="submit" class="bg-purple-950 text-white font-medium px-6 py-2.5 rounded-lg text-sm">Güncelle</button>
+                    </form>
+                </div>
+            </div>
+            <div id="portalTabAddress" class="hidden space-y-4">
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm max-w-lg">
+                    <h3 class="font-bold text-stone-900 mb-4">Adres Bilgileri</h3>
+                    <form onsubmit="updateUserAddress(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-1">İl / İlçe</label>
+                            <input type="text" id="addrCity" placeholder="Örn: Kütahya / Merkez" required class="w-full px-3 py-2 rounded-lg border border-stone-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase mb-1">Açık Adres</label>
+                            <textarea id="addrText" rows="3" required class="w-full px-3 py-2 rounded-lg border border-stone-300 text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="bg-purple-950 text-white font-medium px-6 py-2.5 rounded-lg text-sm">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let siteSettings = JSON.parse(localStorage.getItem('zerafet_settings')) || {
+            banner: "Sezon Açılışına Özel Tüm Şalvar Modellerinde Kargo Bedava!",
+            heroImg: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=1600&auto=format&fit=crop",
+            heroPosY: 50,
+            heroTitle: "Özenle Dikilen Geleneksel Şalvar Koleksiyonu",
+            heroDesc: "Rahatlığı ve şıklığı bir arada arayanlar için birinci sınıf kumaşlardan üretilen özel tasarım şalvarlar ve kombinler Zerafet Moda Evi'nde.",
+            phone: "+90 (555) 123 45 67",
+            email: "bilgi@zerafetmodaevi.com",
+            address: "Merkez / Türkiye"
+        };
+
+        let categories = JSON.parse(localStorage.getItem('zerafet_categories')) || ["Özel Tasarım Şalvar", "Günlük Giyim", "Koleksiyon"];
+        
+        let memberFormFields = JSON.parse(localStorage.getItem('zerafet_form_fields')) || [
+            { id: 'name', label: 'Ad Soyad / Firma', type: 'text', enabled: true, required: true, custom: false },
+            { id: 'email', label: 'E-posta Adresi', type: 'email', enabled: true, required: true, custom: false },
+            { id: 'phone', label: 'Telefon Numarası', type: 'tel', enabled: true, required: true, custom: false },
+            { id: 'pass', label: 'Şifre', type: 'password', enabled: true, required: true, custom: false },
+            { id: 'city', label: 'İl / İlçe', type: 'text', enabled: true, required: true, custom: false },
+            { id: 'address', label: 'Açık Adres', type: 'textarea', enabled: true, required: true, custom: false }
+        ];
+
+        let registeredUsers = JSON.parse(localStorage.getItem('zerafet_users')) || [
+            { id: 1, name: "Ahmet Yılmaz", email: "ahmet@ornek.com", phone: "05559876543", pass: "12345", city: "Ankara / Çankaya", address: "Kızılay Mah. Atatürk Blv. No:10", date: "2026-06-01" },
+            { id: 2, name: "Ayşe Demir", email: "ayse@ornek.com", phone: "05321234567", pass: "12345", city: "İzmir / Bornova", address: "Kazımdirik Mah. 284 Sok. No:5", date: "2026-06-05" }
+        ];
+        let currentUser = JSON.parse(localStorage.getItem('zerafet_current_user')) || null;
+        let cart = JSON.parse(localStorage.getItem('zerafet_cart')) || [];
+        let orders = JSON.parse(localStorage.getItem('zerafet_orders')) || [];
+
+        let products = JSON.parse(localStorage.getItem('zerafet_products')) || [
+            {
+                id: 1,
+                title: "Kadife İşlemeli Geleneksel Şalvar",
+                category: "Özel Tasarım Şalvar",
+                price: "1250",
+                imgs: [
+                    "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop"
+                ],
+                desc: "Yüksek kaliteli kadife kumaştan üretilmiş, geleneksel motiflerle işlenmiş şık ve konforlu şalvar modeli.",
+                sizesData: [
+                    { name: "S", detail: "Bel 68-72 cm, Boy 98 cm" },
+                    { name: "M", detail: "Bel 72-76 cm, Boy 100 cm" },
+                    { name: "L", detail: "Bel 76-82 cm, Boy 102 cm" }
+                ]
+            }
+        ];
+
+        let currentSelectedProduct = null;
+        let selectedSize = '';
+        let currentActiveImgIndex = 0;
+        let editingProductImgs = [];
+        let editingSizesMap = {};
+
+        // Lightbox Zoom & Pan Değişkenleri
+        let scale = 1;
+        let panning = false;
+        let pointX = 0;
+        let pointY = 0;
+        let startX = 0;
+        let startY = 0;
+
+        function applySiteSettings() {
+            document.getElementById('topBanner').querySelector('span').innerText = siteSettings.banner;
+            const hero = document.getElementById('heroSection');
+            hero.style.backgroundImage = `url('${siteSettings.heroImg}')`;
+            hero.style.backgroundPosition = `center ${siteSettings.heroPosY || 50}%`;
+            document.getElementById('heroTitle').innerText = siteSettings.heroTitle;
+            document.getElementById('heroDesc').innerText = siteSettings.heroDesc;
+            document.getElementById('contactPhone').innerText = siteSettings.phone;
+            document.getElementById('contactEmail').innerText = siteSettings.email;
+            document.getElementById('contactAddress').innerText = siteSettings.address;
+            document.getElementById('userCountBadge').innerText = registeredUsers.length;
+            updateNavbarAuthArea();
+            renderDynamicRegisterForm();
+        }
+
+        function updateHeroPreview() {
+            const titleVal = document.getElementById('setHeroTitle').value;
+            const descVal = document.getElementById('setHeroDesc').value;
+            const imgVal = document.getElementById('setHeroImg').value;
+            const posYVal = document.getElementById('setHeroPosY').value;
+
+            document.getElementById('previewTitle').innerText = titleVal || "Başlık giriniz...";
+            document.getElementById('previewDesc').innerText = descVal || "Açıklama giriniz...";
+            document.getElementById('posYValueText').innerText = posYVal + "%";
+            
+            const previewBox = document.getElementById('heroPreviewBox');
+            if(imgVal) {
+                previewBox.style.backgroundImage = `url('${imgVal}')`;
+            }
+            previewBox.style.backgroundPosition = `center ${posYVal}%`;
+        }
+
+        function handleHeroWheel(event) {
+            event.preventDefault();
+            let rangeEl = document.getElementById('setHeroPosY');
+            let currentVal = Number(rangeEl.value);
+            if(event.deltaY > 0) {
+                currentVal = Math.min(100, currentVal + 5);
+            } else {
+                currentVal = Math.max(0, currentVal - 5);
+            }
+            rangeEl.value = currentVal;
+            updateHeroPreview();
+        }
+
+        function adjustPositionValue(amount) {
+            let rangeEl = document.getElementById('setHeroPosY');
+            let currentVal = Number(rangeEl.value) + amount;
+            currentVal = Math.max(0, Math.min(100, currentVal));
+            rangeEl.value = currentVal;
+            updateHeroPreview();
+        }
+
+        function handleHeroLocalFile(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('setHeroImg').value = e.target.result;
+                updateHeroPreview();
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function renderDynamicRegisterForm() {
+            const form = document.getElementById('dynamicRegisterForm');
+            if(!form) return;
+            form.innerHTML = '';
+            memberFormFields.forEach(f => {
+                if(!f.enabled) return;
+                const reqAttr = f.required ? 'required' : '';
+                const reqStar = f.required ? '<span class="text-red-600">*</span>' : '';
+                
+                if(f.type === 'textarea') {
+                    form.innerHTML += `
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">${f.label} ${reqStar}</label>
+                            <textarea id="reg_${f.id}" rows="2" ${reqAttr} class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm"></textarea>
+                        </div>
+                    `;
+                } else {
+                    form.innerHTML += `
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">${f.label} ${reqStar}</label>
+                            <input type="${f.type}" id="reg_${f.id}" ${reqAttr} class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                        </div>
+                    `;
+                }
+            });
+            form.innerHTML += `<button type="submit" class="w-full bg-purple-950 hover:bg-purple-900 text-white font-medium py-3 rounded-xl transition shadow-sm mt-2">Kayıt Ol</button>`;
+        }
+
+        function renderAdminFormFieldsConfig() {
+            const container = document.getElementById('formFieldsConfigList');
+            if(!container) return;
+            container.innerHTML = '';
+            memberFormFields.forEach(f => {
+                const checked = f.enabled ? 'checked' : '';
+                const deleteBtn = f.custom ? `<button onclick="deleteFormField('${f.id}')" class="bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1.5 rounded-lg text-xs font-bold transition ml-2"><i class="fa-solid fa-trash"></i> Sil</button>` : `<span class="text-[10px] text-stone-400 bg-stone-100 px-2 py-1 rounded">Sabit Alan</span>`;
+                
+                container.innerHTML += `
+                    <div class="flex items-center justify-between bg-stone-50 p-4 rounded-xl border text-sm">
+                        <div>
+                            <h4 class="font-bold text-stone-900">${f.label} <span class="text-xs text-stone-400 font-normal">(${f.id})</span></h4>
+                            <p class="text-xs text-stone-500">Zorunlu Alan • Tip: ${f.type}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" ${checked} onchange="toggleFormFieldStatus('${f.id}')" class="sr-only peer">
+                                <div class="w-11 h-6 bg-stone-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-900"></div>
+                            </label>
+                            ${deleteBtn}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function addNewFormField(event) {
+            event.preventDefault();
+            const label = document.getElementById('newFieldLabel').value.trim();
+            const type = document.getElementById('newFieldType').value;
+            if(!label) return;
+
+            const fieldId = 'custom_' + Date.now();
+            memberFormFields.push({
+                id: fieldId,
+                label: label,
+                type: type,
+                enabled: true,
+                required: true,
+                custom: true
+            });
+
+            localStorage.setItem('zerafet_form_fields', JSON.stringify(memberFormFields));
+            document.getElementById('newFieldLabel').value = '';
+            renderAdminFormFieldsConfig();
+            renderDynamicRegisterForm();
+            alert('Yeni üyelik alanı eklendi!');
+        }
+
+        function deleteFormField(id) {
+            if(confirm('Bu alanı silmek istediğinize emin misiniz?')) {
+                memberFormFields = memberFormFields.filter(f => f.id !== id);
+                localStorage.setItem('zerafet_form_fields', JSON.stringify(memberFormFields));
+                renderAdminFormFieldsConfig();
+                renderDynamicRegisterForm();
+            }
+        }
+
+        function toggleFormFieldStatus(id) {
+            const field = memberFormFields.find(f => f.id === id);
+            if(field) {
+                field.enabled = !field.enabled;
+                localStorage.setItem('zerafet_form_fields', JSON.stringify(memberFormFields));
+                renderAdminFormFieldsConfig();
+                renderDynamicRegisterForm();
+            }
+        }
+
+        function toggleSizeSelection(sizeName) {
+            if(editingSizesMap[sizeName] !== undefined) {
+                delete editingSizesMap[sizeName];
+            } else {
+                editingSizesMap[sizeName] = "";
+            }
+            renderEditingSizesUI();
+        }
+
+        function updateSizeDetail(sizeName, val) {
+            editingSizesMap[sizeName] = val;
+        }
+
+        function renderEditingSizesUI() {
+            const allSizes = ['S', 'M', 'L', 'XL', 'XXL', 'Standart'];
+            allSizes.forEach(sz => {
+                const btn = document.getElementById(`sizeBtn-${sz}`);
+                if(btn) {
+                    if(editingSizesMap[sz] !== undefined) {
+                        btn.className = "px-4 py-2 rounded-xl font-bold text-xs border border-purple-950 bg-purple-950 text-white transition shadow-sm";
+                    } else {
+                        btn.className = "px-4 py-2 rounded-xl font-bold text-xs border border-stone-300 bg-white text-stone-700 transition";
+                    }
+                }
+            });
+
+            const container = document.getElementById('selectedSizesDetailContainer');
+            if(!container) return;
+            container.innerHTML = '';
+            const activeKeys = Object.keys(editingSizesMap);
+            if(activeKeys.length === 0) {
+                container.innerHTML = `<p class="text-xs text-stone-400 italic">Henüz beden seçilmedi.</p>`;
+                return;
+            }
+
+            activeKeys.forEach(sz => {
+                container.innerHTML += `
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-stone-200 shadow-sm">
+                        <span class="w-20 font-bold text-xs bg-purple-100 text-purple-900 py-1.5 px-3 rounded-lg text-center">${sz}</span>
+                        <input type="text" value="${editingSizesMap[sz]}" placeholder="Örn: Bel 72cm..." oninput="updateSizeDetail('${sz}', this.value)" class="flex-grow px-3 py-2 rounded-lg border border-stone-300 text-xs">
+                        <button type="button" onclick="toggleSizeSelection('${sz}')" class="text-red-600 hover:text-red-800 px-2 py-1 text-xs font-bold"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function updateNavbarAuthArea() {
+            const authArea = document.getElementById('navAuthArea');
+            if (currentUser) {
+                const displayName = currentUser.name === 'Admin' ? 'Yönetici Paneli' : currentUser.name;
+                authArea.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <button onclick="handleUserNavClick()" class="flex items-center gap-2 text-xs sm:text-sm font-medium bg-purple-100 text-purple-950 px-4 py-2.5 rounded-full hover:bg-purple-200 transition">
+                            <i class="fa-solid fa-user-circle"></i> ${displayName}
+                        </button>
+                        <button onclick="logoutUser()" title="Çıkış" class="text-stone-400 hover:text-red-600 p-2 transition">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                `;
+            } else {
+                authArea.innerHTML = `
+                    <button onclick="openAuthModal()" class="flex items-center gap-2 text-xs sm:text-sm font-medium bg-purple-950 text-white px-5 py-2.5 rounded-full hover:bg-purple-900 transition shadow-sm">
+                        <i class="fa-regular fa-user"></i> Üye Girişi
+                    </button>
+                `;
+            }
+        }
+
+        function handleUserNavClick() {
+            if(currentUser && currentUser.name === 'Admin') {
+                openAdminPage();
+            } else {
+                openCustomerPortal();
+            }
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            localStorage.removeItem('zerafet_current_user');
+            applySiteSettings();
+            alert('Çıkış yapıldı.');
+        }
+
+        function saveSiteSettings(event) {
+            event.preventDefault();
+            siteSettings.banner = document.getElementById('setBanner').value;
+            siteSettings.heroImg = document.getElementById('setHeroImg').value;
+            siteSettings.heroPosY = Number(document.getElementById('setHeroPosY').value);
+            siteSettings.heroTitle = document.getElementById('setHeroTitle').value;
+            siteSettings.heroDesc = document.getElementById('setHeroDesc').value;
+            siteSettings.phone = document.getElementById('setPhone').value;
+            siteSettings.email = document.getElementById('setEmail').value;
+            siteSettings.address = document.getElementById('setAddress').value;
+            localStorage.setItem('zerafet_settings', JSON.stringify(siteSettings));
+            applySiteSettings();
+            alert('Ayarlar başarıyla kaydedildi!');
+        }
+
+        function renderCategorySelects() {
+            const selectEl = document.getElementById('newCategory');
+            if(!selectEl) return;
+            selectEl.innerHTML = '';
+            categories.forEach(cat => { selectEl.innerHTML += `<option value="${cat}">${cat}</option>`; });
+        }
+
+        function addNewCategory(event) {
+            event.preventDefault();
+            const catName = document.getElementById('newCategoryName').value.trim();
+            if (catName && !categories.includes(catName)) {
+                categories.push(catName);
+                localStorage.setItem('zerafet_categories', JSON.stringify(categories));
+                renderAdminCategoryList();
+                renderCategorySelects();
+                document.getElementById('newCategoryName').value = '';
+                alert('Kategori eklendi!');
+            }
+        }
+
+        function deleteCategory(catName) {
+            if (categories.length <= 1) { alert('En az bir kategori kalmalı!'); return; }
+            categories = categories.filter(c => c !== catName);
+            localStorage.setItem('zerafet_categories', JSON.stringify(categories));
+            renderAdminCategoryList();
+            renderCategorySelects();
+        }
+
+        function renderAdminCategoryList() {
+            const list = document.getElementById('adminCategoryList');
+            if(!list) return;
+            list.innerHTML = '';
+            categories.forEach(cat => {
+                list.innerHTML += `<div class="flex items-center justify-between bg-stone-50 p-4 rounded-xl border text-sm"><span class="font-bold">${cat}</span><button onclick="deleteCategory('${cat}')" class="text-red-600"><i class="fa-solid fa-trash"></i></button></div>`;
+            });
+        }
+
+        function renderAdminUserList() {
+            const list = document.getElementById('adminUserList');
+            if(!list) return;
+            list.innerHTML = '';
+            if(registeredUsers.length === 0) {
+                list.innerHTML = `<p class="text-stone-400 text-sm">Kayıtlı üye bulunmuyor.</p>`;
+                return;
+            }
+            registeredUsers.forEach(u => {
+                list.innerHTML += `
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 text-sm space-y-2">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                            <div>
+                                <h4 class="font-bold text-stone-900 text-base">${u.name}</h4>
+                                <p class="text-xs text-stone-500">E-posta: ${u.email} • Tel: ${u.phone || 'Belirtilmemiş'}</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="editUserByAdmin(${u.id})" class="bg-amber-100 hover:bg-amber-200 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-bold transition"><i class="fa-solid fa-pen"></i> Düzenle</button>
+                                <button onclick="deleteUser(${u.id})" class="bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1.5 rounded-lg text-xs font-bold transition"><i class="fa-solid fa-trash"></i> Sil</button>
+                            </div>
+                        </div>
+                        <div class="text-xs text-stone-600 pt-2 border-t border-stone-200 grid grid-cols-1 sm:grid-cols-2 gap-1">
+                            <div><strong>İl/İlçe:</strong> ${u.city || 'Girilmemiş'}</div>
+                            <div><strong>Adres:</strong> ${u.address || 'Girilmemiş'}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function editUserByAdmin(id) {
+            const u = registeredUsers.find(user => user.id === id);
+            if(!u) return;
+            document.getElementById('adminEditUserId').value = u.id;
+            document.getElementById('adminEditName').value = u.name;
+            document.getElementById('adminEditEmail').value = u.email;
+            document.getElementById('adminEditPhone').value = u.phone || '';
+            document.getElementById('adminEditPass').value = u.pass || '';
+            document.getElementById('adminEditCity').value = u.city || '';
+            document.getElementById('adminEditAddress').value = u.address || '';
+
+            document.getElementById('adminUserEditCard').classList.remove('hidden');
+            document.getElementById('adminUserEditCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelAdminUserEdit() {
+            document.getElementById('adminEditUserId').value = '';
+            document.getElementById('adminUserEditCard').classList.add('hidden');
+        }
+
+        function handleAdminUserUpdate(event) {
+            event.preventDefault();
+            const id = Number(document.getElementById('adminEditUserId').value);
+            const u = registeredUsers.find(user => user.id === id);
+            if(u) {
+                u.name = document.getElementById('adminEditName').value;
+                u.email = document.getElementById('adminEditEmail').value;
+                u.phone = document.getElementById('adminEditPhone').value;
+                u.pass = document.getElementById('adminEditPass').value;
+                u.city = document.getElementById('adminEditCity').value;
+                u.address = document.getElementById('adminEditAddress').value;
+
+                localStorage.setItem('zerafet_users', JSON.stringify(registeredUsers));
+                renderAdminUserList();
+                cancelAdminUserEdit();
+                alert('Üye bilgileri güncellendi!');
+            }
+        }
+
+        function deleteUser(id) {
+            if(confirm('Bu üyeyi silmek istediğinize emin misiniz?')) {
+                registeredUsers = registeredUsers.filter(u => u.id !== id);
+                localStorage.setItem('zerafet_users', JSON.stringify(registeredUsers));
+                renderAdminUserList();
+                applySiteSettings();
+            }
+        }
+
+        function handleLocalFiles(event) {
+            const files = event.target.files;
+            if(!files || files.length === 0) return;
+            for(let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    editingProductImgs.push(e.target.result);
+                    renderAdminThumbnails();
+                }
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function renderAdminThumbnails() {
+            const container = document.getElementById('adminThumbnailsContainer');
+            if(!container) return;
+            container.innerHTML = '';
+            if(editingProductImgs.length === 0) {
+                container.innerHTML = `<p class="text-xs text-stone-400">Fotoğraf eklenmemiş.</p>`;
+                return;
+            }
+            editingProductImgs.forEach((imgUrl, idx) => {
+                container.innerHTML += `
+                    <div class="relative w-20 h-20 rounded-lg overflow-hidden border border-stone-300 bg-white group">
+                        <img src="${imgUrl}" class="w-full h-full object-cover">
+                        <button type="button" onclick="removeEditingImg(${idx})" class="absolute top-1 right-1 bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shadow hover:bg-red-700">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            document.getElementById('newImgs').value = editingProductImgs.join(', ');
+        }
+
+        function removeEditingImg(idx) {
+            editingProductImgs.splice(idx, 1);
+            renderAdminThumbnails();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const coverImg = (p.imgs && p.imgs.length > 0) ? p.imgs[0] : p.img;
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl overflow-hidden border border-stone-200 hover:shadow-xl transition duration-300 flex flex-col justify-between group cursor-pointer" onclick="openProductModal(${p.id})">
+                        <div class="relative overflow-hidden aspect-[4/5] bg-stone-100">
+                            <img src="${coverImg}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-purple-950 text-xs font-bold px-3 py-1 rounded-full shadow-sm">${p.category}</span>
+                            <span class="absolute bottom-4 right-4 bg-stone-900/80 text-white text-[10px] font-bold px-2.5 py-1 rounded-md backdrop-blur-sm"><i class="fa-regular fa-images"></i> ${(p.imgs ? p.imgs.length : 1)} Fotoğraf</span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <h3 class="font-serif text-xl font-bold text-stone-900 group-hover:text-purple-900 transition">${p.title}</h3>
+                                <p class="text-stone-500 text-sm mt-1 line-clamp-2">${p.desc}</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between pt-4 border-t border-stone-100">
+                                <span class="text-xl font-bold text-purple-950">${p.price} TL</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-purple-900 bg-purple-50 px-3 py-1.5 rounded-lg group-hover:bg-purple-900 group-hover:text-white transition">İncele & Sipariş</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openProductModal(id) {
+            currentSelectedProduct = products.find(p => p.id === id);
+            if (!currentSelectedProduct) return;
+            if (!currentSelectedProduct.imgs) currentSelectedProduct.imgs = [currentSelectedProduct.img];
+            
+            if(!currentSelectedProduct.sizesData && currentSelectedProduct.sizeGuide) {
+                currentSelectedProduct.sizesData = [{ name: 'M', detail: currentSelectedProduct.sizeGuide }];
+            }
+            if(!currentSelectedProduct.sizesData) {
+                currentSelectedProduct.sizesData = [{ name: 'M', detail: 'Standart Ölçü' }];
+            }
+
+            currentActiveImgIndex = 0;
+            updateModalImages();
+
+            document.getElementById('modalCategory').innerText = currentSelectedProduct.category;
+            document.getElementById('modalTitle').innerText = currentSelectedProduct.title;
+            document.getElementById('modalPrice').innerText = currentSelectedProduct.price + " TL";
+            document.getElementById('modalDesc').innerText = currentSelectedProduct.desc;
+
+            selectedSize = currentSelectedProduct.sizesData[0].name;
+            renderModalSizes();
+            updateModalSizeGuideBox();
+
+            document.getElementById('productModal').classList.remove('hidden');
+            document.getElementById('productModal').classList.add('flex');
+        }
+
+        function updateModalImages() {
+            document.getElementById('modalMainImg').src = currentSelectedProduct.imgs[currentActiveImgIndex];
+            const thumbContainer = document.getElementById('modalThumbnails');
+            thumbContainer.innerHTML = '';
+            currentSelectedProduct.imgs.forEach((imgUrl, idx) => {
+                const borderClass = idx === currentActiveImgIndex ? 'border-purple-900 ring-2' : 'border-stone-200 opacity-70';
+                thumbContainer.innerHTML += `<img src="${imgUrl}" onclick="changeActiveImage(${idx})" class="w-16 h-16 object-cover rounded-lg border-2 cursor-pointer transition ${borderClass}">`;
+            });
+        }
+
+        function changeActiveImage(idx) { currentActiveImgIndex = idx; updateModalImages(); }
+
+        // LIGHTBOX ZOOM & PAN FONKSİYONLARI
+        function openLightbox(imgSrc) {
+            const img = document.getElementById('lightboxImg');
+            img.src = imgSrc;
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            updateLightboxTransform();
+            
+            document.getElementById('lightboxModal').classList.remove('hidden');
+            document.getElementById('lightboxModal').classList.add('flex');
+        }
+
+        function closeLightbox(event) {
+            document.getElementById('lightboxModal').classList.remove('flex');
+            document.getElementById('lightboxModal').classList.add('hidden');
+        }
+
+        function updateLightboxTransform() {
+            const img = document.getElementById('lightboxImg');
+            img.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+
+        const container = document.getElementById('lightboxImgContainer');
+        
+        // Fare Tekeri ile Yakınlaştırma
+        window.addEventListener('DOMContentLoaded', () => {
+            const c = document.getElementById('lightboxImgContainer');
+            if(c) {
+                c.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    const xs = e.clientX;
+                    const ys = e.clientY;
+                    const delta = e.deltaY;
+                    
+                    let newScale = delta < 0 ? scale * 1.15 : scale / 1.15;
+                    newScale = Math.max(1, Math.min(newScale, 8)); // 1x ile 8x arası zoom
+                    
+                    scale = newScale;
+                    if(scale === 1) {
+                        pointX = 0;
+                        pointY = 0;
+                    }
+                    updateLightboxTransform();
+                }, { passive: false });
+
+                // Sürükleme (Pan) Olayları
+                c.addEventListener('mousedown', (e) => {
+                    if(scale > 1) {
+                        panning = true;
+                        startX = e.clientX - pointX;
+                        startY = e.clientY - pointY;
+                    }
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if(!panning) return;
+                    e.preventDefault();
+                    pointX = e.clientX - startX;
+                    pointY = e.clientY - startY;
+                    updateLightboxTransform();
+                });
+
+                window.addEventListener('mouseup', () => {
+                    panning = false;
+                });
+            }
+        });
+
+        function renderModalSizes() {
+            const sizesContainer = document.getElementById('modalSizes');
+            sizesContainer.innerHTML = '';
+            currentSelectedProduct.sizesData.forEach(s => {
+                const activeClass = s.name === selectedSize ? 'bg-purple-950 text-white border-purple-950' : 'bg-white text-stone-700 border-stone-300';
+                sizesContainer.innerHTML += `<button type="button" onclick="selectModalSize('${s.name}')" class="px-4 py-2 rounded-xl border text-sm font-semibold transition ${activeClass}">${s.name}</button>`;
+            });
+        }
+
+        function selectModalSize(sz) {
+            selectedSize = sz;
+            renderModalSizes();
+            updateModalSizeGuideBox();
+        }
+
+        function updateModalSizeGuideBox() {
+            const found = currentSelectedProduct.sizesData.find(s => s.name === selectedSize);
+            const detailText = found ? found.detail : "Ölçü bilgisi bulunmuyor.";
+            document.getElementById('sizeGuideBox').innerHTML = `<strong>Seçilen Beden (${selectedSize}) Ölçüleri:</strong> ${detailText}`;
+        }
+
+        function closeProductModal() { document.getElementById('productModal').classList.remove('flex'); document.getElementById('productModal').classList.add('hidden'); }
+
+        function addToCartFromModal() {
+            if(!currentUser) { alert('Lütfen önce giriş yapın!'); openAuthModal(); return; }
+            const cartItem = {
+                id: Date.now(),
+                title: currentSelectedProduct.title,
+                price: currentSelectedProduct.price,
+                size: selectedSize,
+                img: currentSelectedProduct.imgs[0]
+            };
+            cart.push(cartItem);
+            localStorage.setItem('zerafet_cart', JSON.stringify(cart));
+            alert('Ürün sepetinize eklendi!');
+            closeProductModal();
+        }
+
+        function orderViaWhatsApp() {
+            if (!currentSelectedProduct) return;
+            const cleanPhone = siteSettings.phone.replace(/\D/g, '');
+            const text = `Merhaba, Zerafet Moda Evi'nden "${currentSelectedProduct.title}" ürününü sipariş etmek istiyorum. Beden: ${selectedSize}, Fiyat: ${currentSelectedProduct.price} TL.`;
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function openAuthModal() { switchAuthView('login'); document.getElementById('authModal').classList.remove('hidden'); document.getElementById('authModal').classList.add('flex'); }
+        function closeAuthModal() { document.getElementById('authModal').classList.remove('flex'); document.getElementById('authModal').classList.add('hidden'); }
+        function switchAuthView(v) {
+            if(v === 'login') { document.getElementById('loginView').classList.remove('hidden'); document.getElementById('registerView').classList.add('hidden'); }
+            else { document.getElementById('loginView').classList.add('hidden'); document.getElementById('registerView').classList.remove('hidden'); }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const u = document.getElementById('loginUser').value.trim();
+            const p = document.getElementById('loginPass').value.trim();
+            closeAuthModal();
+
+            if (u === 'admin' && p === '123456') {
+                currentUser = { name: 'Admin', email: 'admin@zerafet.com' };
+                localStorage.setItem('zerafet_current_user', JSON.stringify(currentUser));
+                openAdminPage();
+            } else {
+                const found = registeredUsers.find(user => (user.email === u || user.name === u) && user.pass === p);
+                if (found) {
+                    currentUser = found;
+                    localStorage.setItem('zerafet_current_user', JSON.stringify(currentUser));
+                    openCustomerPortal();
+                } else {
+                    alert('Hatalı kullanıcı adı veya şifre!');
+                }
+            }
+            applySiteSettings();
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            let newUser = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString('tr-TR')
+            };
+
+            memberFormFields.forEach(f => {
+                if(f.enabled) {
+                    const el = document.getElementById(`reg_${f.id}`);
+                    if(el) {
+                        newUser[f.id] = el.value.trim();
+                    }
+                }
+            });
+
+            if(!newUser.phone) {
+                alert('Telefon numarası zorunludur!');
+                return;
+            }
+
+            registeredUsers.push(newUser);
+            localStorage.setItem('zerafet_users', JSON.stringify(registeredUsers));
+            currentUser = newUser;
+            localStorage.setItem('zerafet_current_user', JSON.stringify(currentUser));
+            applySiteSettings();
+            closeAuthModal();
+            alert('Kayıt başarıyla oluşturuldu!');
+            openCustomerPortal();
+        }
+
+        function openAdminPage() {
+            document.getElementById('mainWebsiteView').classList.add('hidden');
+            document.getElementById('adminPageView').classList.remove('hidden');
+
+            document.getElementById('setBanner').value = siteSettings.banner;
+            document.getElementById('setHeroImg').value = siteSettings.heroImg;
+            document.getElementById('setHeroPosY').value = siteSettings.heroPosY !== undefined ? siteSettings.heroPosY : 50;
+            document.getElementById('setHeroTitle').value = siteSettings.heroTitle;
+            document.getElementById('setHeroDesc').value = siteSettings.heroDesc;
+            document.getElementById('setPhone').value = siteSettings.phone;
+            document.getElementById('setEmail').value = siteSettings.email;
+            document.getElementById('setAddress').value = siteSettings.address;
+
+            updateHeroPreview();
+            renderCategorySelects();
+            renderAdminCategoryList();
+            renderAdminProductList();
+            renderAdminUserList();
+            renderAdminFormFieldsConfig();
+            switchAdminTab('settings');
+        }
+
+        function exitAdminToHome() {
+            currentUser = null;
+            localStorage.removeItem('zerafet_current_user');
+            document.getElementById('adminPageView').classList.add('hidden');
+            document.getElementById('mainWebsiteView').classList.remove('hidden');
+            applySiteSettings();
+            renderProducts();
+        }
+
+        function switchAdminTab(tab) {
+            ['settings', 'categories', 'products', 'users', 'formfields'].forEach(t => {
+                const el = document.getElementById(`adminTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if(el) el.classList.add('hidden');
+                if(btn) btn.className = "whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition";
+            });
+            const activeEl = document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+            const activeBtn = document.getElementById(`tabBtn${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+            if(activeEl) activeEl.classList.remove('hidden');
+            if(activeBtn) activeBtn.className = "whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-purple-950 text-white transition";
+        }
+
+        function openCustomerPortal() {
+            if(currentUser && currentUser.name === 'Admin') { openAdminPage(); return; }
+            if(!currentUser) { openAuthModal(); return; }
+
+            document.getElementById('portalUserName').innerText = currentUser.name;
+            document.getElementById('profileName').value = currentUser.name || '';
+            document.getElementById('profileEmail').value = currentUser.email || '';
+            document.getElementById('profilePhone').value = currentUser.phone || '';
+            document.getElementById('profilePass').value = currentUser.pass || '';
+            document.getElementById('addrCity').value = currentUser.city || '';
+            document.getElementById('addrText').value = currentUser.address || '';
+
+            renderCustomerCart();
+            renderCustomerOrders();
+            switchPortalTab('orders');
+
+            document.getElementById('customerPortalModal').classList.remove('hidden');
+            document.getElementById('customerPortalModal').classList.add('flex');
+        }
+
+        function closeCustomerPortal() {
+            document.getElementById('customerPortalModal').classList.remove('flex');
+            document.getElementById('customerPortalModal').classList.add('hidden');
+        }
+
+        function switchPortalTab(tab) {
+            ['orders', 'cart', 'profile', 'address'].forEach(t => {
+                document.getElementById(`portalTab${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.add('hidden');
+                document.getElementById(`portalBtn${t.charAt(0).toUpperCase() + t.slice(1)}`).className = "whitespace-nowrap px-4 py-2 rounded-lg font-bold text-sm bg-stone-200 text-stone-700 transition";
+            });
+            document.getElementById(`portalTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.remove('hidden');
+            document.getElementById(`portalBtn${tab.charAt(0).toUpperCase() + t.slice(1)}`).className = "whitespace-nowrap px-4 py-2 rounded-lg font-bold text-sm bg-purple-950 text-white transition";
+        }
+
+        function renderCustomerCart() {
+            const list = document.getElementById('customerCartList');
+            if(!list) return;
+            list.innerHTML = '';
+            let total = 0;
+            if(cart.length === 0) {
+                list.innerHTML = `<p class="text-stone-400 text-sm">Sepetiniz boş.</p>`;
+                document.getElementById('cartTotalPrice').innerText = "0 TL";
+                return;
+            }
+            cart.forEach((item, idx) => {
+                total += Number(item.price);
+                list.innerHTML += `
+                    <div class="flex items-center justify-between bg-white p-4 rounded-xl border text-sm gap-3">
+                        <div class="flex items-center gap-3">
+                            <img src="${item.img}" class="w-12 h-12 object-cover rounded-lg flex-shrink-0">
+                            <div>
+                                <h4 class="font-bold">${item.title}</h4>
+                                <p class="text-xs text-stone-500">Beden: ${item.size} • ${item.price} TL</p>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${idx})" class="text-red-600 p-2"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+            document.getElementById('cartTotalPrice').innerText = total + " TL";
+        }
+
+        function removeFromCart(idx) { cart.splice(idx, 1); localStorage.setItem('zerafet_cart', JSON.stringify(cart)); renderCustomerCart(); }
+
+        function checkoutCart() {
+            if(cart.length === 0) return;
+            const newOrder = {
+                id: Date.now(),
+                user: currentUser.name,
+                items: [...cart],
+                total: cart.reduce((sum, i) => sum + Number(i.price), 0),
+                date: new Date().toLocaleDateString('tr-TR'),
+                status: 'Hazırlanıyor'
+            };
+            orders.unshift(newOrder);
+            localStorage.setItem('zerafet_orders', JSON.stringify(orders));
+            cart = [];
+            localStorage.setItem('zerafet_cart', JSON.stringify(cart));
+            renderCustomerCart();
+            renderCustomerOrders();
+            alert('Sipariş alındı!');
+            switchPortalTab('orders');
+        }
+
+        function renderCustomerOrders() {
+            const list = document.getElementById('customerOrdersList');
+            if(!list) return;
+            list.innerHTML = '';
+            const userOrders = orders.filter(o => o.user === currentUser.name);
+            if(userOrders.length === 0) { list.innerHTML = `<p class="text-stone-400 text-sm">Sipariş yok.</p>`; return; }
+            userOrders.forEach(o => {
+                list.innerHTML += `<div class="bg-white p-4 rounded-xl border text-sm space-y-2"><div class="flex justify-between font-bold border-b pb-2"><span>Sipariş #${o.id.toString().slice(-6)}</span><span class="text-purple-800">${o.status}</span></div><p class="text-xs text-stone-500">${o.date} • ${o.total} TL</p></div>`;
+            });
+        }
+
+        function updateUserProfile(event) {
+            event.preventDefault();
+            currentUser.name = document.getElementById('profileName').value;
+            currentUser.email = document.getElementById('profileEmail').value;
+            currentUser.phone = document.getElementById('profilePhone').value;
+            currentUser.pass = document.getElementById('profilePass').value;
+            localStorage.setItem('zerafet_current_user', JSON.stringify(currentUser));
+            const idx = registeredUsers.findIndex(u => u.id === currentUser.id);
+            if(idx !== -1) { registeredUsers[idx] = currentUser; localStorage.setItem('zerafet_users', JSON.stringify(registeredUsers)); }
+            document.getElementById('portalUserName').innerText = currentUser.name;
+            applySiteSettings();
+            alert('Profil güncellendi!');
+        }
+
+        function updateUserAddress(event) {
+            event.preventDefault();
+            currentUser.city = document.getElementById('addrCity').value;
+            currentUser.address = document.getElementById('addrText').value;
+            localStorage.setItem('zerafet_current_user', JSON.stringify(currentUser));
+            const idx = registeredUsers.findIndex(u => u.id === currentUser.id);
+            if(idx !== -1) { registeredUsers[idx] = currentUser; localStorage.setItem('zerafet_users', JSON.stringify(registeredUsers)); }
+            alert('Adres kaydedildi!');
+        }
+
+        function handleProductSubmit(event) {
+            event.preventDefault();
+            const editId = document.getElementById('editProductId').value;
+            const manualText = document.getElementById('newImgs').value;
+            let finalImgs = [...editingProductImgs];
+            if(manualText.trim() !== '') {
+                const manualList = manualText.split(/[\n,]+/).map(u => u.trim()).filter(u => u.length > 0);
+                manualList.forEach(url => { if(!finalImgs.includes(url)) finalImgs.push(url); });
+            }
+
+            if(finalImgs.length === 0) {
+                finalImgs = ["https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800&auto=format&fit=crop"];
+            }
+
+            let sizesDataArr = [];
+            Object.keys(editingSizesMap).forEach(k => {
+                sizesDataArr.push({ name: k, detail: editingSizesMap[k] || 'Standart Ölçü' });
+            });
+            if(sizesDataArr.length === 0) {
+                sizesDataArr.push({ name: 'Standart', detail: 'Standart Ölçü' });
+            }
+
+            if (editId) {
+                const p = products.find(prod => prod.id == editId);
+                if (p) {
+                    p.title = document.getElementById('newTitle').value;
+                    p.category = document.getElementById('newCategory').value;
+                    p.price = document.getElementById('newPrice').value;
+                    p.imgs = finalImgs;
+                    p.desc = document.getElementById('newDesc').value;
+                    p.sizesData = sizesDataArr;
+                }
+                alert('Ürün güncellendi!');
+            } else {
+                const newP = {
+                    id: Date.now(),
+                    title: document.getElementById('newTitle').value,
+                    category: document.getElementById('newCategory').value,
+                    price: document.getElementById('newPrice').value,
+                    imgs: finalImgs,
+                    desc: document.getElementById('newDesc').value,
+                    sizesData: sizesDataArr
+                };
+                products.unshift(newP);
+                alert('Ürün eklendi!');
+            }
+            localStorage.setItem('zerafet_products', JSON.stringify(products));
+            renderAdminProductList();
+            resetProductForm();
+        }
+
+        function editProduct(id) {
+            const p = products.find(prod => prod.id === id);
+            if (!p) return;
+            document.getElementById('editProductId').value = p.id;
+            document.getElementById('newTitle').value = p.title;
+            document.getElementById('newCategory').value = p.category;
+            document.getElementById('newPrice').value = p.price;
+            document.getElementById('newDesc').value = p.desc;
+
+            editingSizesMap = {};
+            if(p.sizesData) {
+                p.sizesData.forEach(s => { editingSizesMap[s.name] = s.detail; });
+            } else if(p.sizeGuide) {
+                editingSizesMap['M'] = p.sizeGuide;
+            } else {
+                editingSizesMap['M'] = 'Bel 72cm';
+            }
+            renderEditingSizesUI();
+
+            editingProductImgs = p.imgs ? [...p.imgs] : [p.img];
+            renderAdminThumbnails();
+
+            document.getElementById('productFormTitle').innerText = "Ürünü Düzenle & Fotoğrafları Yönet";
+            document.getElementById('productSubmitBtn').innerText = "Değişiklikleri Kaydet";
+            document.getElementById('cancelEditBtn').classList.remove('hidden');
+            document.getElementById('productFormTitle').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetProductForm() {
+            document.getElementById('editProductId').value = '';
+            document.getElementById('newTitle').value = '';
+            document.getElementById('newPrice').value = '';
+            document.getElementById('newImgs').value = '';
+            document.getElementById('newDesc').value = '';
+            editingProductImgs = [];
+            editingSizesMap = { 'S': 'Bel 68-72 cm', 'M': 'Bel 72-76 cm', 'L': 'Bel 76-82 cm' };
+            renderEditingSizesUI();
+            renderAdminThumbnails();
+
+            document.getElementById('productFormTitle').innerText = "Yeni Şalvar Ekle & Fotoğraf Yükle";
+            document.getElementById('productSubmitBtn').innerText = "Ürünü Kaydet";
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+        }
+
+        function deleteProduct(id) {
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('zerafet_products', JSON.stringify(products));
+            renderAdminProductList();
+        }
+
+        function renderAdminProductList() {
+            const list = document.getElementById('adminProductList');
+            if(!list) return;
+            list.innerHTML = '';
+            products.forEach(p => {
+                const cover = (p.imgs && p.imgs.length > 0) ? p.imgs[0] : '';
+                const count = p.imgs ? p.imgs.length : 1;
+                list.innerHTML += `
+                    <div class="flex items-center justify-between bg-stone-50 p-4 rounded-xl border text-sm gap-3">
+                        <div class="flex items-center gap-3">
+                            <img src="${cover}" class="w-12 h-12 object-cover rounded-lg flex-shrink-0">
+                            <div>
+                                <h4 class="font-bold">${p.title}</h4>
+                                <p class="text-xs text-stone-500">${p.price} TL • ${p.category} • ${count} Fotoğraf</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="editProduct(${p.id})" class="bg-amber-100 text-amber-800 px-3 py-1 rounded-lg text-xs font-bold">Düzenle</button>
+                            <button onclick="deleteProduct(${p.id})" class="bg-red-100 text-red-700 px-3 py-1 rounded-lg text-xs font-bold">Sil</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.onload = function() {
+            applySiteSettings();
+            renderCategorySelects();
+            renderProducts();
+            editingSizesMap = { 'S': 'Bel 68-72 cm', 'M': 'Bel 72-76 cm', 'L': 'Bel 76-82 cm' };
+            renderEditingSizesUI();
+            if(currentUser && currentUser.name === 'Admin') {
+                openAdminPage();
+            }
+        };
+    </script>
+</body>
+</html>
