@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zerafet Moda Evi - Şalvar & Geleneksel Giyim</title>
-    <!-- Tailwind CSS Kararlı CDN Sürümü -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
         #lightboxImgContainer {
             overflow: hidden;
@@ -23,6 +22,11 @@
             transform-origin: center center;
             transition: transform 0.1s ease-out;
             user-select: none;
+        }
+        @media (max-width: 640px) {
+            #heroSection {
+                background-size: cover !important;
+            }
         }
     </style>
 </head>
@@ -57,7 +61,7 @@
             </div>
         </header>
 
-        <section id="heroSection" class="relative bg-stone-900 text-white overflow-hidden py-24 sm:py-32 bg-cover" style="background-image: url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=1600&auto=format&fit=crop'); background-position: center;">
+        <section id="heroSection" class="relative bg-stone-900 text-white overflow-hidden py-24 sm:py-32 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=1600&auto=format&fit=crop');">
             <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-transparent"></div>
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-2xl">
@@ -576,7 +580,6 @@
         let editingProductImgs = [];
         let editingSizesMap = {};
 
-        // Lightbox Zoom & Pan Değişkenleri
         let scale = 1;
         let panning = false;
         let pointX = 0;
@@ -660,14 +663,14 @@
                 if(f.type === 'textarea') {
                     form.innerHTML += `
                         <div>
-                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">${f.label}${reqStar}</label>
+                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">${f.label} ${reqStar}</label>
                             <textarea id="reg_${f.id}" rows="2" ${reqAttr} class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm"></textarea>
                         </div>
                     `;
                 } else {
                     form.innerHTML += `
                         <div>
-                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">${f.label}${reqStar}</label>
+                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">${f.label} ${reqStar}</label>
                             <input type="${f.type}" id="reg_${f.id}" ${reqAttr} class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
                         </div>
                     `;
@@ -690,3 +693,611 @@
                             <h4 class="font-bold text-stone-900">${f.label} <span class="text-xs text-stone-400 font-normal">(${f.id})</span></h4>
                             <p class="text-xs text-stone-500">Zorunlu Alan • Tip: ${f.type}</p>
                         </div>
+                        <div class="flex items-center gap-3">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" ${checked} onchange="toggleFormFieldStatus('${f.id}')" class="sr-only peer">
+                                <div class="w-11 h-6 bg-stone-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-900"></div>
+                            </label>
+                            ${deleteBtn}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function addNewFormField(event) {
+            event.preventDefault();
+            const label = document.getElementById('newFieldLabel').value.trim();
+            const type = document.getElementById('newFieldType').value;
+            if(!label) return;
+
+            const fieldId = 'custom_' + Date.now();
+            memberFormFields.push({
+                id: fieldId,
+                label: label,
+                type: type,
+                enabled: true,
+                required: true,
+                custom: true
+            });
+
+            localStorage.setItem('zerafet_form_fields', JSON.stringify(memberFormFields));
+            document.getElementById('newFieldLabel').value = '';
+            renderAdminFormFieldsConfig();
+            renderDynamicRegisterForm();
+            alert('Yeni üyelik alanı eklendi!');
+        }
+
+        function deleteFormField(id) {
+            if(confirm('Bu alanı silmek istediğinize emin misiniz?')) {
+                memberFormFields = memberFormFields.filter(f => f.id !== id);
+                localStorage.setItem('zerafet_form_fields', JSON.stringify(memberFormFields));
+                renderAdminFormFieldsConfig();
+                renderDynamicRegisterForm();
+            }
+        }
+
+        function toggleFormFieldStatus(id) {
+            const field = memberFormFields.find(f => f.id === id);
+            if(field) {
+                field.enabled = !field.enabled;
+                localStorage.setItem('zerafet_form_fields', JSON.stringify(memberFormFields));
+                renderAdminFormFieldsConfig();
+                renderDynamicRegisterForm();
+            }
+        }
+
+        function toggleSizeSelection(sizeName) {
+            if(editingSizesMap[sizeName] !== undefined) {
+                delete editingSizesMap[sizeName];
+            } else {
+                editingSizesMap[sizeName] = "";
+            }
+            renderEditingSizesUI();
+        }
+
+        function updateSizeDetail(sizeName, val) {
+            editingSizesMap[sizeName] = val;
+        }
+
+        function renderEditingSizesUI() {
+            const allSizes = ['S', 'M', 'L', 'XL', 'XXL', 'Standart'];
+            allSizes.forEach(sz => {
+                const btn = document.getElementById(`sizeBtn-${sz}`);
+                if(btn) {
+                    if(editingSizesMap[sz] !== undefined) {
+                        btn.className = "px-4 py-2 rounded-xl font-bold text-xs border border-purple-950 bg-purple-950 text-white transition shadow-sm";
+                    } else {
+                        btn.className = "px-4 py-2 rounded-xl font-bold text-xs border border-stone-300 bg-white text-stone-700 transition";
+                    }
+                }
+            });
+
+            const container = document.getElementById('selectedSizesDetailContainer');
+            if(!container) return;
+            container.innerHTML = '';
+            const activeKeys = Object.keys(editingSizesMap);
+            if(activeKeys.length === 0) {
+                container.innerHTML = `<p class="text-xs text-stone-400 italic">Henüz beden seçilmedi.</p>`;
+                return;
+            }
+
+            activeKeys.forEach(sz => {
+                container.innerHTML += `
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-stone-200 shadow-sm">
+                        <span class="w-20 font-bold text-xs bg-purple-100 text-purple-900 py-1.5 px-3 rounded-lg text-center">${sz}</span>
+                        <input type="text" value="${editingSizesMap[sz]}" placeholder="Örn: Bel 72cm..." oninput="updateSizeDetail('${sz}', this.value)" class="flex-grow px-3 py-2 rounded-lg border border-stone-300 text-xs">
+                        <button type="button" onclick="toggleSizeSelection('${sz}')" class="text-red-600 hover:text-red-800 px-2 py-1 text-xs font-bold"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function updateNavbarAuthArea() {
+            const authArea = document.getElementById('navAuthArea');
+            if (currentUser) {
+                const displayName = currentUser.name === 'Admin' ? 'Yönetici Paneli' : currentUser.name;
+                authArea.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <button onclick="handleUserNavClick()" class="flex items-center gap-2 text-xs sm:text-sm font-medium bg-purple-100 text-purple-950 px-4 py-2.5 rounded-full hover:bg-purple-200 transition">
+                            <i class="fa-solid fa-user-circle"></i> ${displayName}
+                        </button>
+                        <button onclick="logoutUser()" title="Çıkış" class="text-stone-400 hover:text-red-600 p-2 transition">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                `;
+            } else {
+                authArea.innerHTML = `
+                    <button onclick="openAuthModal()" class="flex items-center gap-2 text-xs sm:text-sm font-medium bg-purple-950 text-white px-5 py-2.5 rounded-full hover:bg-purple-900 transition shadow-sm">
+                        <i class="fa-regular fa-user"></i> Üye Girişi
+                    </button>
+                `;
+            }
+        }
+
+        function handleUserNavClick() {
+            if(currentUser && currentUser.name === 'Admin') {
+                openAdminPage();
+            } else {
+                openCustomerPortal();
+            }
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            localStorage.removeItem('zerafet_current_user');
+            applySiteSettings();
+            alert('Çıkış yapıldı.');
+        }
+
+        function saveSiteSettings(event) {
+            event.preventDefault();
+            siteSettings.banner = document.getElementById('setBanner').value;
+            siteSettings.heroImg = document.getElementById('setHeroImg').value;
+            siteSettings.heroPosY = Number(document.getElementById('setHeroPosY').value);
+            siteSettings.heroTitle = document.getElementById('setHeroTitle').value;
+            siteSettings.heroDesc = document.getElementById('setHeroDesc').value;
+            siteSettings.phone = document.getElementById('setPhone').value;
+            siteSettings.email = document.getElementById('setEmail').value;
+            siteSettings.address = document.getElementById('setAddress').value;
+            localStorage.setItem('zerafet_settings', JSON.stringify(siteSettings));
+            applySiteSettings();
+            alert('Ayarlar başarıyla kaydedildi!');
+        }
+
+        function renderCategorySelects() {
+            const selectEl = document.getElementById('newCategory');
+            if(!selectEl) return;
+            selectEl.innerHTML = '';
+            categories.forEach(cat => { selectEl.innerHTML += `<option value="${cat}">${cat}</option>`; });
+        }
+
+        function addNewCategory(event) {
+            event.preventDefault();
+            const catName = document.getElementById('newCategoryName').value.trim();
+            if (catName && !categories.includes(catName)) {
+                categories.push(catName);
+                localStorage.setItem('zerafet_categories', JSON.stringify(categories));
+                renderAdminCategoryList();
+                renderCategorySelects();
+                document.getElementById('newCategoryName').value = '';
+                alert('Kategori eklendi!');
+            }
+        }
+
+        function deleteCategory(catName) {
+            if (categories.length <= 1) { alert('En az bir kategori kalmalı!'); return; }
+            categories = categories.filter(c => c !== catName);
+            localStorage.setItem('zerafet_categories', JSON.stringify(categories));
+            renderAdminCategoryList();
+            renderCategorySelects();
+        }
+
+        function renderAdminCategoryList() {
+            const list = document.getElementById('adminCategoryList');
+            if(!list) return;
+            list.innerHTML = '';
+            categories.forEach(cat => {
+                list.innerHTML += `<div class="flex items-center justify-between bg-stone-50 p-4 rounded-xl border text-sm"><span class="font-bold">${cat}</span><button onclick="deleteCategory('${cat}')" class="text-red-600"><i class="fa-solid fa-trash"></i></button></div>`;
+            });
+        }
+
+        function renderAdminUserList() {
+            const list = document.getElementById('adminUserList');
+            if(!list) return;
+            list.innerHTML = '';
+            if(registeredUsers.length === 0) {
+                list.innerHTML = `<p class="text-stone-400 text-sm">Kayıtlı üye bulunmuyor.</p>`;
+                return;
+            }
+            registeredUsers.forEach(u => {
+                list.innerHTML += `
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 text-sm space-y-2">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                            <div>
+                                <h4 class="font-bold text-stone-900 text-base">${u.name}</h4>
+                                <p class="text-xs text-stone-500">E-posta: ${u.email} • Tel: ${u.phone || 'Belirtilmemiş'}</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="editUserByAdmin(${u.id})" class="bg-amber-100 hover:bg-amber-200 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-bold transition"><i class="fa-solid fa-pen"></i> Düzenle</button>
+                                <button onclick="deleteUser(${u.id})" class="bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1.5 rounded-lg text-xs font-bold transition"><i class="fa-solid fa-trash"></i> Sil</button>
+                            </div>
+                        </div>
+                        <div class="text-xs text-stone-600 pt-2 border-t border-stone-200 grid grid-cols-1 sm:grid-cols-2 gap-1">
+                            <div><strong>İl/İlçe:</strong> ${u.city || 'Girilmemiş'}</div>
+                            <div><strong>Adres:</strong> ${u.address || 'Girilmemiş'}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function editUserByAdmin(id) {
+            const u = registeredUsers.find(user => user.id === id);
+            if(!u) return;
+            document.getElementById('adminEditUserId').value = u.id;
+            document.getElementById('adminEditName').value = u.name;
+            document.getElementById('adminEditEmail').value = u.email;
+            document.getElementById('adminEditPhone').value = u.phone || '';
+            document.getElementById('adminEditPass').value = u.pass || '';
+            document.getElementById('adminEditCity').value = u.city || '';
+            document.getElementById('adminEditAddress').value = u.address || '';
+
+            document.getElementById('adminUserEditCard').classList.remove('hidden');
+            document.getElementById('adminUserEditCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelAdminUserEdit() {
+            document.getElementById('adminEditUserId').value = '';
+            document.getElementById('adminUserEditCard').classList.add('hidden');
+        }
+
+        function handleAdminUserUpdate(event) {
+            event.preventDefault();
+            const id = Number(document.getElementById('adminEditUserId').value);
+            const u = registeredUsers.find(user => user.id === id);
+            if(u) {
+                u.name = document.getElementById('adminEditName').value;
+                u.email = document.getElementById('adminEditEmail').value;
+                u.phone = document.getElementById('adminEditPhone').value;
+                u.pass = document.getElementById('adminEditPass').value;
+                u.city = document.getElementById('adminEditCity').value;
+                u.address = document.getElementById('adminEditAddress').value;
+
+                localStorage.setItem('zerafet_users', JSON.stringify(registeredUsers));
+                renderAdminUserList();
+                cancelAdminUserEdit();
+                alert('Üye bilgileri güncellendi!');
+            }
+        }
+
+        function deleteUser(id) {
+            if(confirm('Bu üyeyi silmek istediğinize emin misiniz?')) {
+                registeredUsers = registeredUsers.filter(u => u.id !== id);
+                localStorage.setItem('zerafet_users', JSON.stringify(registeredUsers));
+                renderAdminUserList();
+                applySiteSettings();
+            }
+        }
+
+        function handleLocalFiles(event) {
+            const files = event.target.files;
+            if(!files || files.length === 0) return;
+            for(let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    editingProductImgs.push(e.target.result);
+                    renderAdminThumbnails();
+                }
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function renderAdminThumbnails() {
+            const container = document.getElementById('adminThumbnailsContainer');
+            if(!container) return;
+            container.innerHTML = '';
+            if(editingProductImgs.length === 0) {
+                container.innerHTML = `<p class="text-xs text-stone-400">Fotoğraf eklenmemiş.</p>`;
+                return;
+            }
+            editingProductImgs.forEach((imgUrl, idx) => {
+                container.innerHTML += `
+                    <div class="relative w-20 h-20 rounded-lg overflow-hidden border border-stone-300 bg-white group">
+                        <img src="${imgUrl}" class="w-full h-full object-cover">
+                        <button type="button" onclick="removeEditingImg(${idx})" class="absolute top-1 right-1 bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shadow hover:bg-red-700">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            document.getElementById('newImgs').value = editingProductImgs.join(', ');
+        }
+
+        function removeEditingImg(idx) {
+            editingProductImgs.splice(idx, 1);
+            renderAdminThumbnails();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const coverImg = (p.imgs && p.imgs.length > 0) ? p.imgs[0] : p.img;
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl overflow-hidden border border-stone-200 hover:shadow-xl transition duration-300 flex flex-col justify-between group cursor-pointer" onclick="openProductModal(${p.id})">
+                        <div class="relative overflow-hidden aspect-[4/5] bg-stone-100">
+                            <img src="${coverImg}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-purple-950 text-xs font-bold px-3 py-1 rounded-full shadow-sm">${p.category}</span>
+                            <span class="absolute bottom-4 right-4 bg-stone-900/80 text-white text-[10px] font-bold px-2.5 py-1 rounded-md backdrop-blur-sm"><i class="fa-regular fa-images"></i> ${(p.imgs ? p.imgs.length : 1)} Fotoğraf</span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <h3 class="font-serif text-xl font-bold text-stone-900 group-hover:text-purple-900 transition">${p.title}</h3>
+                                <p class="text-stone-500 text-sm mt-1 line-clamp-2">${p.desc}</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between pt-4 border-t border-stone-100">
+                                <span class="text-xl font-bold text-purple-950">${p.price} TL</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-purple-900 bg-purple-50 px-3 py-1.5 rounded-lg group-hover:bg-purple-900 group-hover:text-white transition">İncele & Sipariş</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openProductModal(id) {
+            currentSelectedProduct = products.find(p => p.id === id);
+            if (!currentSelectedProduct) return;
+            if (!currentSelectedProduct.imgs) currentSelectedProduct.imgs = [currentSelectedProduct.img];
+            
+            if(!currentSelectedProduct.sizesData && currentSelectedProduct.sizeGuide) {
+                currentSelectedProduct.sizesData = [{ name: 'M', detail: currentSelectedProduct.sizeGuide }];
+            }
+            if(!currentSelectedProduct.sizesData) {
+                currentSelectedProduct.sizesData = [{ name: 'M', detail: 'Standart Ölçü' }];
+            }
+
+            currentActiveImgIndex = 0;
+            updateModalImages();
+
+            document.getElementById('modalCategory').innerText = currentSelectedProduct.category;
+            document.getElementById('modalTitle').innerText = currentSelectedProduct.title;
+            document.getElementById('modalPrice').innerText = currentSelectedProduct.price + " TL";
+            document.getElementById('modalDesc').innerText = currentSelectedProduct.desc;
+
+            selectedSize = currentSelectedProduct.sizesData[0].name;
+            renderModalSizes();
+            updateModalSizeGuideBox();
+
+            document.getElementById('productModal').classList.remove('hidden');
+            document.getElementById('productModal').classList.add('flex');
+        }
+
+        function updateModalImages() {
+            document.getElementById('modalMainImg').src = currentSelectedProduct.imgs[currentActiveImgIndex];
+            const thumbContainer = document.getElementById('modalThumbnails');
+            thumbContainer.innerHTML = '';
+            currentSelectedProduct.imgs.forEach((imgUrl, idx) => {
+                const borderClass = idx === currentActiveImgIndex ? 'border-purple-900 ring-2' : 'border-stone-200 opacity-70';
+                thumbContainer.innerHTML += `<img src="${imgUrl}" onclick="changeActiveImage(${idx})" class="w-16 h-16 object-cover rounded-lg border-2 cursor-pointer transition ${borderClass}">`;
+            });
+        }
+
+        function changeActiveImage(idx) { currentActiveImgIndex = idx; updateModalImages(); }
+
+        function openLightbox(imgSrc) {
+            const img = document.getElementById('lightboxImg');
+            img.src = imgSrc;
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            updateLightboxTransform();
+            
+            document.getElementById('lightboxModal').classList.remove('hidden');
+            document.getElementById('lightboxModal').classList.add('flex');
+        }
+
+        function closeLightbox(event) {
+            document.getElementById('lightboxModal').classList.remove('flex');
+            document.getElementById('lightboxModal').classList.add('hidden');
+        }
+
+        function updateLightboxTransform() {
+            const img = document.getElementById('lightboxImg');
+            img.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const c = document.getElementById('lightboxImgContainer');
+            if(c) {
+                c.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    let newScale = e.deltaY < 0 ? scale * 1.15 : scale / 1.15;
+                    newScale = Math.max(1, Math.min(newScale, 8));
+                    
+                    scale = newScale;
+                    if(scale === 1) {
+                        pointX = 0;
+                        pointY = 0;
+                    }
+                    updateLightboxTransform();
+                }, { passive: false });
+
+                c.addEventListener('mousedown', (e) => {
+                    if(scale > 1) {
+                        panning = true;
+                        startX = e.clientX - pointX;
+                        startY = e.clientY - pointY;
+                    }
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if(!panning) return;
+                    e.preventDefault();
+                    pointX = e.clientX - startX;
+                    pointY = e.clientY - startY;
+                    updateLightboxTransform();
+                });
+
+                window.addEventListener('mouseup', () => {
+                    panning = false;
+                });
+            }
+        });
+
+        function renderModalSizes() {
+            const sizesContainer = document.getElementById('modalSizes');
+            sizesContainer.innerHTML = '';
+            currentSelectedProduct.sizesData.forEach(s => {
+                const activeClass = s.name === selectedSize ? 'bg-purple-950 text-white border-purple-950' : 'bg-white text-stone-700 border-stone-300';
+                sizesContainer.innerHTML += `<button type="button" onclick="selectModalSize('${s.name}')" class="px-4 py-2 rounded-xl border text-sm font-semibold transition ${activeClass}">${s.name}</button>`;
+            });
+        }
+
+        function selectModalSize(sz) {
+            selectedSize = sz;
+            renderModalSizes();
+            updateModalSizeGuideBox();
+        }
+
+        function updateModalSizeGuideBox() {
+            const found = currentSelectedProduct.sizesData.find(s => s.name === selectedSize);
+            const detailText = found ? found.detail : "Ölçü bilgisi bulunmuyor.";
+            document.getElementById('sizeGuideBox').innerHTML = `<strong>Seçilen Beden (${selectedSize}) Ölçüleri:</strong> ${detailText}`;
+        }
+
+        function closeProductModal() { document.getElementById('productModal').classList.remove('flex'); document.getElementById('productModal').classList.add('hidden'); }
+
+        function addToCartFromModal() {
+            if(!currentUser) { alert('Lütfen önce giriş yapın!'); openAuthModal(); return; }
+            const cartItem = {
+                id: Date.now(),
+                title: currentSelectedProduct.title,
+                price: currentSelectedProduct.price,
+                size: selectedSize,
+                img: currentSelectedProduct.imgs[0]
+            };
+            cart.push(cartItem);
+            localStorage.setItem('zerafet_cart', JSON.stringify(cart));
+            alert('Ürün sepetinize eklendi!');
+            closeProductModal();
+        }
+
+        function orderViaWhatsApp() {
+            if (!currentSelectedProduct) return;
+            const cleanPhone = siteSettings.phone.replace(/\D/g, '');
+            const text = `Merhaba, Zerafet Moda Evi'nden "${currentSelectedProduct.title}" ürününü sipariş etmek istiyorum. Beden: ${selectedSize}, Fiyat: ${currentSelectedProduct.price} TL.`;
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function openAuthModal() { switchAuthView('login'); document.getElementById('authModal').classList.remove('hidden'); document.getElementById('authModal').classList.add('flex'); }
+        function closeAuthModal() { document.getElementById('authModal').classList.remove('flex'); document.getElementById('authModal').classList.add('hidden'); }
+        function switchAuthView(v) {
+            if(v === 'login') { document.getElementById('loginView').classList.remove('hidden'); document.getElementById('registerView').classList.add('hidden'); }
+            else { document.getElementById('loginView').classList.add('hidden'); document.getElementById('registerView').classList.remove('hidden'); }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const u = document.getElementById('loginUser').value.trim();
+            const p = document.getElementById('loginPass').value.trim();
+            closeAuthModal();
+
+            if (u === 'admin' && p === '123456') {
+                currentUser = { name: 'Admin', email: 'admin@zerafet.com' };
+                localStorage.setItem('zerafet_current_user', JSON.stringify(currentUser));
+                openAdminPage();
+            } else {
+                const found = registeredUsers.find(user => (user.email === u || user.name === u) && user.pass === p);
+                if (found) {
+                    currentUser = found;
+                    localStorage.setItem('zerafet_current_user', JSON.stringify(currentUser));
+                    openCustomerPortal();
+                } else {
+                    alert('Hatalı kullanıcı adı veya şifre!');
+                }
+            }
+            applySiteSettings();
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            let newUser = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString('tr-TR')
+            };
+
+            memberFormFields.forEach(f => {
+                if(f.enabled) {
+                    const el = document.getElementById(`reg_${f.id}`);
+                    if(el) {
+                        newUser[f.id] = el.value.trim();
+                    }
+                }
+            });
+
+            if(!newUser.phone) {
+                alert('Telefon numarası zorunludur!');
+                return;
+            }
+
+            registeredUsers.push(newUser);
+            localStorage.setItem('zerafet_users', JSON.stringify(registeredUsers));
+            currentUser = newUser;
+            localStorage.setItem('zerafet_current_user', JSON.stringify(currentUser));
+            applySiteSettings();
+            closeAuthModal();
+            alert('Kayıt başarıyla oluşturuldu!');
+            openCustomerPortal();
+        }
+
+        function openAdminPage() {
+            document.getElementById('mainWebsiteView').classList.add('hidden');
+            document.getElementById('adminPageView').classList.remove('hidden');
+
+            document.getElementById('setBanner').value = siteSettings.banner;
+            document.getElementById('setHeroImg').value = siteSettings.heroImg;
+            document.getElementById('setHeroPosY').value = siteSettings.heroPosY !== undefined ? siteSettings.heroPosY : 50;
+            document.getElementById('setHeroTitle').value = siteSettings.heroTitle;
+            document.getElementById('setHeroDesc').value = siteSettings.heroDesc;
+            document.getElementById('setPhone').value = siteSettings.phone;
+            document.getElementById('setEmail').value = siteSettings.email;
+            document.getElementById('setAddress').value = siteSettings.address;
+
+            updateHeroPreview();
+            renderCategorySelects();
+            renderAdminCategoryList();
+            renderAdminProductList();
+            renderAdminUserList();
+            renderAdminFormFieldsConfig();
+            switchAdminTab('settings');
+        }
+
+        function exitAdminToHome() {
+            currentUser = null;
+            localStorage.removeItem('zerafet_current_user');
+            document.getElementById('adminPageView').classList.add('hidden');
+            document.getElementById('mainWebsiteView').classList.remove('hidden');
+            applySiteSettings();
+            renderProducts();
+        }
+
+        function switchAdminTab(tab) {
+            ['settings', 'categories', 'products', 'users', 'formfields'].forEach(t => {
+                const el = document.getElementById(`adminTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if(el) el.classList.add('hidden');
+                if(btn) btn.className = "whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition";
+            });
+            const activeEl = document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+            const activeBtn = document.getElementById(`tabBtn${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+            if(activeEl) activeEl.classList.remove('hidden');
+            if(activeBtn) activeBtn.className = "whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-purple-950 text-white transition";
+        }
+
+        function openCustomerPortal() {
+            if(currentUser && currentUser.name === 'Admin') { openAdminPage(); return; }
+            if(!currentUser) { openAuthModal(); return; }
+
+            document.getElementById('portalUserName').innerText = currentUser.name;
+            document.getElementById('profileName').value = currentUser.name || '';
+            document.getElementById('profileEmail').value = currentUser.email || '';
+            document.getElementById('profilePhone').value = currentUser.phone || '';
+            document.getElementById('profilePass').value = currentUser.pass || '';
+            document.getElementById('addrCity').value = currentUser.city || '';
+            document.getElementById('addrText').value = currentUser.address || '';
+
+            renderCustomerCart();
+            renderCustomerOrders();
+            switchPortalTab('orders');
+
+            document.getElementById('customerPortalModal').classList.remove('hidden');
+            document.getElementById('customerPortalModal').classList.add('flex');
+        }
+
+        function closeCustomerPortal() {
+            document.getElementById('customerPortalModal').classList.remove('flex');
+            document.getElementById('customerPortalModal
