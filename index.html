@@ -33,7 +33,7 @@
             ✨ <span id="bannerText">Sezon Açılışına Özel Tüm Şalvar Modellerinde Kargo Bedava!</span> ✨
         </div>
 
-        <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200">
+        <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                 <a href="#" class="flex items-center gap-2">
                     <span class="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-purple-950">ZERAFET</span>
@@ -56,7 +56,7 @@
             </div>
         </header>
 
-        <!-- HERO BÖLÜMÜ (Mobilde daha dik durması için min-h-[70vh] eklendi) -->
+        <!-- HERO BÖLÜMÜ -->
         <section id="heroSection" class="relative bg-stone-900 text-white overflow-hidden flex flex-col justify-center min-h-[70vh] sm:min-h-[80vh] py-16 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=1600&auto=format&fit=crop');">
             <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-transparent"></div>
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -101,47 +101,229 @@
         </footer>
     </div>
 
-    <!-- YÖNETİCİ PANELİ -->
-    <div id="adminPageView" class="hidden min-h-screen bg-stone-100 p-2 sm:p-8">
-        <div class="max-w-6xl mx-auto space-y-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <span class="text-xs uppercase tracking-widest font-bold text-purple-800 bg-purple-100 px-2 py-0.5 rounded">Ana Kontrol Merkezi</span>
-                    <h1 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-1">Zerafet Moda Evi Yönetim Paneli</h1>
+    <!-- PROFESYONEL YÖNETİCİ PANELİ -->
+    <div id="adminPageView" class="hidden min-h-screen bg-stone-100 p-3 sm:p-8">
+        <div class="max-w-7xl mx-auto space-y-6">
+            
+            <!-- ÜST HEADER & ÖZET İSTATİSTİK KARTLARI -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 space-y-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-stone-100">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs uppercase tracking-widest font-bold text-purple-800 bg-purple-100 px-2.5 py-1 rounded-md">Yönetim Paneli v2.0</span>
+                            <span class="text-xs text-stone-400 font-medium"><i class="fa-solid fa-circle text-emerald-500 text-[8px] mr-1"></i> Sistem Aktif</span>
+                        </div>
+                        <h1 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-1">Zerafet Moda Evi Kontrol Merkezi</h1>
+                    </div>
+                    <button onclick="exitAdminToHome()" class="w-full sm:w-auto bg-stone-900 hover:bg-red-600 text-white font-medium px-5 py-2.5 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap & Mağazaya Dön
+                    </button>
                 </div>
-                <button onclick="exitAdminToHome()" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-medium px-5 py-2.5 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap & Ana Sayfaya Dön
-                </button>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-box"></i></div>
+                        <div>
+                            <span class="text-xs text-stone-500 font-medium block">Toplam Ürün</span>
+                            <span id="statTotalProducts" class="text-xl font-bold text-stone-900">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-layer-group"></i></div>
+                        <div>
+                            <span class="text-xs text-stone-500 font-medium block">Kategoriler</span>
+                            <span id="statTotalCategories" class="text-xl font-bold text-stone-900">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-users"></i></div>
+                        <div>
+                            <span class="text-xs text-stone-500 font-medium block">Kayıtlı Üye</span>
+                            <span id="statTotalUsers" class="text-xl font-bold text-stone-900">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-900 flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-receipt"></i></div>
+                        <div>
+                            <span class="text-xs text-stone-500 font-medium block">Sipariş Sayısı</span>
+                            <span id="statTotalOrders" class="text-xl font-bold text-stone-900">0</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="flex overflow-x-auto gap-2 bg-white p-3 rounded-xl border border-stone-200 shadow-sm">
-                <button onclick="switchAdminTab('settings')" id="tabBtnSettings" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-purple-950 text-white transition">Site Ayarları</button>
-                <button onclick="switchAdminTab('categories')" id="tabBtnCategories" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition">Kategoriler</button>
-                <button onclick="switchAdminTab('products')" id="tabBtnProducts" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition">Ürün Yönetimi</button>
-                <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition">Üye Listesi (<span id="userCountBadge">0</span>)</button>
-                <button onclick="switchAdminTab('formfields')" id="tabBtnFormfields" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition">Üyelik Alanları</button>
+            <!-- TAB NAVİGASYON -->
+            <div class="flex overflow-x-auto gap-2 bg-white p-2 rounded-xl border border-stone-200 shadow-sm">
+                <button onclick="switchAdminTab('products')" id="tabBtnProducts" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-purple-950 text-white transition flex items-center gap-2"><i class="fa-solid fa-boxes-packing"></i> Ürün Yönetimi</button>
+                <button onclick="switchAdminTab('settings')" id="tabBtnSettings" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition flex items-center gap-2"><i class="fa-solid fa-sliders"></i> Site Ayarları</button>
+                <button onclick="switchAdminTab('categories')" id="tabBtnCategories" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition flex items-center gap-2"><i class="fa-solid fa-tags"></i> Kategoriler</button>
+                <button onclick="switchAdminTab('users')" id="tabBtnUsers" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition flex items-center gap-2"><i class="fa-solid fa-users"></i> Üye Listesi (<span id="userCountBadge">0</span>)</button>
+                <button onclick="switchAdminTab('formfields')" id="tabBtnFormfields" class="whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition flex items-center gap-2"><i class="fa-solid fa-list-check"></i> Üyelik Alanları</button>
             </div>
 
-            <!-- SİTE AYARLARI -->
-            <div id="adminTabSettings" class="space-y-6">
+            <!-- TAB 1: ÜRÜN YÖNETİMİ (YENİLENMİŞ PROFESYONEL MODÜL) -->
+            <div id="adminTabProducts" class="space-y-6">
+                
+                <!-- ÜRÜN EKLE / DÜZENLE FORMU -->
                 <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
-                    <h3 class="font-bold text-stone-900 text-lg">Ana Sayfa & Hero Alanı Taslak Görünümü</h3>
-                    <div id="heroPreviewBox" class="relative rounded-2xl overflow-hidden bg-stone-900 text-white flex flex-col justify-center min-h-[50vh] p-6 sm:p-12 bg-cover shadow-lg border border-stone-300" style="background-image: url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=1600&auto=format&fit=crop'); background-position: center 50%;">
+                    <div class="flex items-center justify-between pb-4 border-b border-stone-100">
+                        <div>
+                            <h3 id="productFormTitle" class="font-bold text-stone-900 text-lg flex items-center gap-2">
+                                <i class="fa-solid fa-square-plus text-purple-900"></i> Yeni Ürün Ekle & Düzenle
+                            </h3>
+                            <p class="text-xs text-stone-500 mt-0.5">Ürün kodunu, kapak fotoğrafını, stok durumunu ve beden ölçülerini buradan ayarlayın.</p>
+                        </div>
+                        <button type="button" id="cancelEditBtn" onclick="resetProductForm()" class="hidden bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-xmark"></i> Düzenlemeyi İptal Et
+                        </button>
+                    </div>
+
+                    <form onsubmit="handleProductSubmit(event)" class="space-y-6">
+                        <input type="hidden" id="editProductId" value="">
+
+                        <!-- TEMEL BİLGİLER -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">Ürün Kodu (SKU) *</label>
+                                <div class="flex gap-2">
+                                    <input type="text" id="newCode" required placeholder="Örn: ZRF-101" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm font-mono font-bold text-purple-950 uppercase">
+                                    <button type="button" onclick="generateProductCode()" class="bg-purple-100 hover:bg-purple-200 text-purple-900 px-3 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap" title="Otomatik Ürün Kodu Üret">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> Üret
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">Ürün Adı *</label>
+                                <input type="text" id="newTitle" required placeholder="Örn: Kadife İşlemeli Şalvar" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">Kategori *</label>
+                                <select id="newCategory" required class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm bg-white"></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">Fiyat (TL) *</label>
+                                <input type="number" id="newPrice" required placeholder="1250" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm font-bold">
+                            </div>
+                        </div>
+
+                        <!-- STOK VE ROZET AYARLARI -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-stone-50 p-4 rounded-xl border border-stone-200">
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">Stok Durumu</label>
+                                <select id="newStock" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm bg-white">
+                                    <option value="stokta">🟢 Stokta Var</option>
+                                    <option value="az_stok">🟡 Az Stok (Tükeniyor)</option>
+                                    <option value="stoksuz">🔴 Stok Tükendi</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">Öne Çıkan Rozet / Etiket</label>
+                                <input type="text" id="newBadge" placeholder="Örn: Yeni Sezon, Çok Satan, İndirimde" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm bg-white">
+                            </div>
+                        </div>
+
+                        <!-- FOTOĞRAF VE KAPAK SEÇİMİ -->
+                        <div class="bg-purple-50/50 p-5 rounded-2xl border border-purple-100 space-y-4">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                                <div>
+                                    <h4 class="font-bold text-purple-950 text-sm">📷 Fotoğraf & Kapak Resmi Yönetimi</h4>
+                                    <p class="text-xs text-stone-500">Yüklediğiniz fotoğraflardan birini kapak resmi olarak belirlemek için kart üzerindeki <strong>"Kapak Resmi Yap"</strong> butonuna tıklayın.</p>
+                                </div>
+                                <label class="cursor-pointer bg-purple-900 hover:bg-purple-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition inline-flex items-center gap-2 shadow-sm">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Bilgisayardan Fotoğraf Seç (Çoklu)
+                                    <input type="file" multiple accept="image/*" class="hidden" onchange="handleLocalFiles(event)">
+                                </label>
+                            </div>
+
+                            <!-- MÜÇVET/EKLENEN FOTOĞRAFLARIN KART ÖNİZLEMELERİ -->
+                            <div id="adminThumbnailsContainer" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 pt-2"></div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Veya İnternetten Fotoğraf URL'leri Ekle (Virgülle Ayırın)</label>
+                                <textarea id="newImgs" rows="2" placeholder="https://resim1.jpg, https://resim2.jpg..." class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-xs bg-white"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- AÇIKLAMA -->
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">Ürün Açıklaması *</label>
+                            <textarea id="newDesc" rows="3" required placeholder="Ürünün kumaşı, kalıbı ve detayları..." class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm"></textarea>
+                        </div>
+
+                        <!-- BEDEN & ÖLÇÜ DETAYLARI -->
+                        <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200 space-y-3">
+                            <label class="block text-xs font-bold text-stone-800 uppercase tracking-wider">Beden Seçimi & Özel Ölçü Tanımlama</label>
+                            <div class="flex flex-wrap gap-2">
+                                <button type="button" onclick="toggleSizeSelection('S')" id="sizeBtn-S" class="px-4 py-2 rounded-xl text-xs font-bold border border-stone-300 bg-white">S Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('M')" id="sizeBtn-M" class="px-4 py-2 rounded-xl text-xs font-bold border border-stone-300 bg-white">M Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('L')" id="sizeBtn-L" class="px-4 py-2 rounded-xl text-xs font-bold border border-stone-300 bg-white">L Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('XL')" id="sizeBtn-XL" class="px-4 py-2 rounded-xl text-xs font-bold border border-stone-300 bg-white">XL Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('XXL')" id="sizeBtn-XXL" class="px-4 py-2 rounded-xl text-xs font-bold border border-stone-300 bg-white">XXL Beden</button>
+                                <button type="button" onclick="toggleSizeSelection('Standart')" id="sizeBtn-Standart" class="px-4 py-2 rounded-xl text-xs font-bold border border-stone-300 bg-white">Standart Ölçü</button>
+                            </div>
+                            <div id="selectedSizesDetailContainer" class="space-y-2 pt-2"></div>
+                        </div>
+
+                        <div class="flex justify-end pt-2">
+                            <button type="submit" id="productSubmitBtn" class="w-full sm:w-auto bg-purple-950 hover:bg-purple-900 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition shadow-md">
+                                <i class="fa-solid fa-check mr-2"></i> Ürünü Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- MEVCUT ÜRÜN LİSTESİ & ARAMA/FİLTRELEME -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-stone-100">
+                        <div>
+                            <h3 class="font-bold text-stone-900 text-lg flex items-center gap-2">
+                                <i class="fa-solid fa-list text-purple-900"></i> Mağaza Ürün Listesi
+                            </h3>
+                            <p class="text-xs text-stone-500 mt-0.5">Sistemde kayıtlı ürünlerinizi arayabilir, filtreleyebilir ve düzenleyebilirsiniz.</p>
+                        </div>
+
+                        <!-- ARAMA VE FİLTRE ARAYÜZÜ -->
+                        <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                            <div class="relative flex-grow sm:w-64">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-stone-400 text-xs"></i>
+                                <input type="text" id="adminProductSearch" oninput="filterAdminProducts()" placeholder="Ürün Kodu veya Adı ile Ara..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-stone-300 text-xs bg-stone-50">
+                            </div>
+                            <select id="adminCategoryFilter" onchange="filterAdminProducts()" class="px-3 py-2 rounded-xl border border-stone-300 text-xs bg-stone-50">
+                                <option value="all">Tüm Kategoriler</option>
+                            </select>
+                            <select id="adminStockFilter" onchange="filterAdminProducts()" class="px-3 py-2 rounded-xl border border-stone-300 text-xs bg-stone-50">
+                                <option value="all">Tüm Stok Durumları</option>
+                                <option value="stokta">Stokta Var</option>
+                                <option value="az_stok">Az Stok</option>
+                                <option value="stoksuz">Stok Tükendi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="adminProductList" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- TAB 2: SİTE AYARLARI -->
+            <div id="adminTabSettings" class="hidden space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+                    <h3 class="font-bold text-stone-900 text-lg">Ana Sayfa & Hero Görünüm Ayarları</h3>
+                    <div id="heroPreviewBox" class="relative rounded-2xl overflow-hidden bg-stone-900 text-white flex flex-col justify-center min-h-[40vh] p-6 sm:p-12 bg-cover shadow-lg border border-stone-300" style="background-image: url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=1600&auto=format&fit=crop'); background-position: center 50%;">
                         <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-transparent pointer-events-none"></div>
                         <div class="relative max-w-xl pointer-events-none">
-                            <span class="text-purple-300 text-xs uppercase tracking-widest font-semibold block mb-2">Canlı Hero Taslak Önizlemesi</span>
+                            <span class="text-purple-300 text-xs uppercase tracking-widest font-semibold block mb-2">Canlı Hero Önizlemesi</span>
                             <h2 id="previewTitle" class="font-serif text-xl sm:text-4xl font-bold mb-3">Özenle Dikilen Geleneksel Şalvar Koleksiyonu</h2>
-                            <p id="previewDesc" class="text-stone-300 text-sm mb-6 font-light">Rahatlığı ve şıklığı bir arada arayanlar için birinci sınıf kumaşlar...</p>
+                            <p id="previewDesc" class="text-stone-300 text-sm mb-6 font-light">Rahatlığı ve şıklığı bir arada arayanlar için...</p>
                         </div>
                     </div>
                     <form onsubmit="saveSiteSettings(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-stone-100">
                         <div>
                             <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Banner Yazısı</label>
-                            <input type="text" id="setBanner" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                            <input type="text" id="setBanner" required class="w-full px-4 py-3 rounded-xl border text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Hero Fotoğraf URL</label>
-                            <input type="url" id="setHeroImg" required oninput="updateHeroPreview()" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                            <input type="url" id="setHeroImg" required oninput="updateHeroPreview()" class="w-full px-4 py-3 rounded-xl border text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Dikey Odak Konumu (%)</label>
@@ -149,23 +331,23 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Ana Başlık</label>
-                            <input type="text" id="setHeroTitle" required oninput="updateHeroPreview()" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                            <input type="text" id="setHeroTitle" required oninput="updateHeroPreview()" class="w-full px-4 py-3 rounded-xl border text-sm">
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Alt Açıklama</label>
-                            <input type="text" id="setHeroDesc" required oninput="updateHeroPreview()" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                            <input type="text" id="setHeroDesc" required oninput="updateHeroPreview()" class="w-full px-4 py-3 rounded-xl border text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Telefon</label>
-                            <input type="text" id="setPhone" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                            <input type="text" id="setPhone" required class="w-full px-4 py-3 rounded-xl border text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-stone-700 uppercase mb-2">E-posta</label>
-                            <input type="email" id="setEmail" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                            <input type="email" id="setEmail" required class="w-full px-4 py-3 rounded-xl border text-sm">
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-bold text-stone-700 uppercase mb-2">Adres</label>
-                            <input type="text" id="setAddress" required class="w-full px-4 py-3 rounded-xl border border-stone-300 text-sm">
+                            <input type="text" id="setAddress" required class="w-full px-4 py-3 rounded-xl border text-sm">
                         </div>
                         <div class="sm:col-span-2">
                             <button type="submit" class="bg-purple-950 text-white font-medium px-8 py-3 rounded-xl text-sm transition">Değişiklikleri Kaydet</button>
@@ -174,13 +356,13 @@
                 </div>
             </div>
 
-            <!-- KATEGORİLER -->
+            <!-- TAB 3: KATEGORİLER -->
             <div id="adminTabCategories" class="hidden space-y-6">
-                <div class="bg-white p-6 sm:p-8 rounded-2xl border shadow-sm">
-                    <h3 class="font-bold text-stone-900 text-lg mb-4">Yeni Kategori Ekle</h3>
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border shadow-sm space-y-4">
+                    <h3 class="font-bold text-stone-900 text-lg">Yeni Kategori Ekle</h3>
                     <form onsubmit="addNewCategory(event)" class="flex gap-4">
                         <input type="text" id="newCategoryName" required placeholder="Kategori adı..." class="flex-grow px-4 py-3 rounded-xl border text-sm">
-                        <button type="submit" class="bg-purple-950 text-white px-8 py-3 rounded-xl text-sm">Ekle</button>
+                        <button type="submit" class="bg-purple-950 text-white px-8 py-3 rounded-xl text-sm font-bold">Ekle</button>
                     </form>
                 </div>
                 <div class="bg-white p-6 sm:p-8 rounded-2xl border shadow-sm">
@@ -189,53 +371,7 @@
                 </div>
             </div>
 
-            <!-- ÜRÜN YÖNETİMİ -->
-            <div id="adminTabProducts" class="hidden space-y-6">
-                <div class="bg-white p-6 sm:p-8 rounded-2xl border shadow-sm">
-                    <h3 id="productFormTitle" class="font-bold text-stone-900 text-lg mb-6">Yeni Şalvar Ekle & Fotoğraf Yükle</h3>
-                    <form onsubmit="handleProductSubmit(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <input type="hidden" id="editProductId" value="">
-                        <div><label class="block text-xs font-bold uppercase mb-2">Ürün Adı</label><input type="text" id="newTitle" required class="w-full px-4 py-3 rounded-xl border text-sm"></div>
-                        <div><label class="block text-xs font-bold uppercase mb-2">Kategori</label><select id="newCategory" required class="w-full px-4 py-3 rounded-xl border text-sm bg-white"></select></div>
-                        <div><label class="block text-xs font-bold uppercase mb-2">Fiyat (TL)</label><input type="number" id="newPrice" required class="w-full px-4 py-3 rounded-xl border text-sm"></div>
-                        
-                        <div class="sm:col-span-2 bg-stone-50 p-4 rounded-xl border space-y-4">
-                            <label class="block text-xs font-bold uppercase">Fotoğraflar</label>
-                            <label class="cursor-pointer bg-purple-900 text-white text-xs font-bold px-5 py-3 rounded-xl inline-flex gap-2">
-                                <i class="fa-solid fa-cloud-arrow-up"></i> Bilgisayardan Seç
-                                <input type="file" multiple accept="image/*" class="hidden" onchange="handleLocalFiles(event)">
-                            </label>
-                            <div id="adminThumbnailsContainer" class="flex flex-wrap gap-3"></div>
-                            <textarea id="newImgs" rows="2" placeholder="URL'leri buraya yapıştırabilirsiniz..." class="w-full px-4 py-3 rounded-xl border text-sm bg-white"></textarea>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-xs font-bold uppercase mb-2">Açıklama</label>
-                            <textarea id="newDesc" rows="3" required class="w-full px-4 py-3 rounded-xl border text-sm"></textarea>
-                        </div>
-                        <div class="sm:col-span-2 bg-purple-50/50 p-4 rounded-xl border border-purple-100 space-y-4">
-                            <label class="block text-xs font-bold text-purple-950 uppercase">Beden Seçimi</label>
-                            <div class="flex flex-wrap gap-2">
-                                <button type="button" onclick="toggleSizeSelection('S')" id="sizeBtn-S" class="px-4 py-2 rounded-xl text-xs border font-bold bg-white">S</button>
-                                <button type="button" onclick="toggleSizeSelection('M')" id="sizeBtn-M" class="px-4 py-2 rounded-xl text-xs border font-bold bg-white">M</button>
-                                <button type="button" onclick="toggleSizeSelection('L')" id="sizeBtn-L" class="px-4 py-2 rounded-xl text-xs border font-bold bg-white">L</button>
-                                <button type="button" onclick="toggleSizeSelection('XL')" id="sizeBtn-XL" class="px-4 py-2 rounded-xl text-xs border font-bold bg-white">XL</button>
-                                <button type="button" onclick="toggleSizeSelection('Standart')" id="sizeBtn-Standart" class="px-4 py-2 rounded-xl text-xs border font-bold bg-white">Standart</button>
-                            </div>
-                            <div id="selectedSizesDetailContainer" class="space-y-3 pt-2"></div>
-                        </div>
-                        <div class="sm:col-span-2 flex gap-4">
-                            <button type="submit" id="productSubmitBtn" class="bg-purple-950 text-white px-8 py-3 rounded-xl text-sm font-medium">Ürünü Kaydet</button>
-                            <button type="button" id="cancelEditBtn" onclick="resetProductForm()" class="hidden bg-stone-300 px-8 py-3 rounded-xl text-sm font-medium">İptal</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border shadow-sm">
-                    <h3 class="font-bold text-stone-900 text-lg mb-4">Mevcut Ürün Listesi</h3>
-                    <div id="adminProductList" class="space-y-3"></div>
-                </div>
-            </div>
-
-            <!-- ÜYE LİSTESİ -->
+            <!-- TAB 4: ÜYE LİSTESİ -->
             <div id="adminTabUsers" class="hidden space-y-6">
                 <div class="bg-white p-6 rounded-2xl border shadow-sm">
                     <h3 class="font-bold text-stone-900 text-lg mb-2">Kayıtlı Üyeler Listesi</h3>
@@ -243,7 +379,7 @@
                 </div>
             </div>
 
-            <!-- ÜYELİK ALANLARI -->
+            <!-- TAB 5: ÜYELİK ALANLARI -->
             <div id="adminTabFormfields" class="hidden space-y-6">
                 <div class="bg-white p-6 rounded-2xl border shadow-sm">
                     <h3 class="font-bold text-stone-900 text-lg mb-4">Üyelik Formu Alanları</h3>
@@ -256,28 +392,34 @@
     <!-- ÜRÜN DETAY MODALI -->
     <div id="productModal" class="fixed inset-0 z-50 bg-stone-950/80 backdrop-blur-md hidden items-center justify-center p-0 sm:p-4">
         <div class="bg-white rounded-none sm:rounded-3xl w-full h-full sm:h-auto sm:max-h-[96vh] max-w-7xl overflow-y-auto shadow-2xl relative grid grid-cols-1 lg:grid-cols-12">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center text-stone-700 shadow-md">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center text-stone-700 shadow-md hover:bg-stone-200 transition">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
             <div class="lg:col-span-7 p-4 sm:p-10 bg-stone-100 flex flex-col justify-between">
                 <div class="rounded-2xl overflow-hidden bg-white shadow-md aspect-[4/5] flex items-center justify-center cursor-pointer group relative" onclick="openLightbox(document.getElementById('modalMainImg').src)">
                     <img id="modalMainImg" src="" alt="Ürün" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white font-bold text-sm gap-2">
+                        <i class="fa-solid fa-expand text-xl"></i> Büyütmek İçin Tıklayın
+                    </div>
                 </div>
                 <div id="modalThumbnails" class="flex gap-3 mt-4 overflow-x-auto pb-2"></div>
             </div>
             <div class="lg:col-span-5 p-6 sm:p-12 flex flex-col justify-between">
                 <div>
-                    <span id="modalCategory" class="text-xs uppercase tracking-widest font-bold text-purple-800 bg-purple-100 px-3 py-1 rounded-md">Kategori</span>
-                    <h3 id="modalTitle" class="font-serif text-2xl sm:text-4xl font-bold text-stone-900 mt-4">Ürün Adı</h3>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span id="modalCode" class="text-xs font-mono font-bold bg-stone-900 text-white px-2.5 py-1 rounded-md">ZRF-101</span>
+                        <span id="modalCategory" class="text-xs uppercase tracking-widest font-bold text-purple-800 bg-purple-100 px-3 py-1 rounded-md">Kategori</span>
+                    </div>
+                    <h3 id="modalTitle" class="font-serif text-2xl sm:text-4xl font-bold text-stone-900 mt-2">Ürün Adı</h3>
                     <p id="modalPrice" class="text-2xl font-bold text-purple-950 mt-3">0.00 TL</p>
                     <p id="modalDesc" class="text-stone-600 text-sm sm:text-base mt-6 leading-relaxed">Açıklama.</p>
                     <div class="mt-8">
                         <label class="block text-xs font-bold text-stone-700 uppercase mb-3">Beden Seçiniz:</label>
                         <div id="modalSizes" class="flex flex-wrap gap-3"></div>
                     </div>
-                    <div id="sizeGuideBox" class="mt-6 p-4 bg-amber-50/60 border rounded-xl text-xs text-stone-700"></div>
+                    <div id="sizeGuideBox" class="mt-6 p-4 bg-amber-50/60 border border-amber-200/60 rounded-xl text-xs text-stone-700"></div>
                 </div>
-                <div class="mt-8 pt-6 border-t flex flex-col sm:flex-row gap-4">
+                <div class="mt-8 pt-6 border-t border-stone-200 flex flex-col sm:flex-row gap-4">
                     <button onclick="addToCartFromModal()" class="flex-1 bg-stone-900 hover:bg-stone-800 text-white font-semibold py-4 px-6 rounded-2xl transition flex items-center justify-center gap-2 text-sm shadow-lg">
                         <i class="fa-solid fa-cart-shopping"></i> Sepete Ekle
                     </button>
@@ -289,16 +431,13 @@
         </div>
     </div>
 
-    <!-- LIGHTBOX (MOBİL TOUCH & ZOOM DESTEKLİ) -->
+    <!-- LIGHTBOX (ZOOM MODAL) -->
     <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/95 hidden items-center justify-center p-0 overflow-hidden" onclick="closeLightbox(event)">
         <button onclick="closeLightbox(event)" class="absolute top-6 right-6 z-50 text-white text-3xl w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
             <i class="fa-solid fa-xmark"></i>
         </button>
         <div id="lightboxImgContainer" class="w-full h-full flex items-center justify-center relative" onclick="event.stopPropagation()">
             <img id="lightboxImg" src="" class="max-h-[90vh] max-w-[90vw] object-contain rounded-xl">
-        </div>
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md text-white text-xs px-4 py-2 rounded-full pointer-events-none z-50 text-center">
-            Yakınlaştırmak için kaydırın / çimdikleyin
         </div>
     </div>
 
@@ -367,6 +506,7 @@
         </div>
     </div>
 
+    <!-- SİSTEM SCRIPTLERİ -->
     <script>
         let siteSettings = JSON.parse(localStorage.getItem('zerafet_settings')) || {
             banner: "Sezon Açılışına Özel Tüm Şalvar Modellerinde Kargo Bedava!",
@@ -394,20 +534,68 @@
         let orders = JSON.parse(localStorage.getItem('zerafet_orders')) || [];
 
         let products = JSON.parse(localStorage.getItem('zerafet_products')) || [
-            { id: 1, title: "Kadife İşlemeli Şalvar", category: "Özel Tasarım Şalvar", price: "1250", imgs: ["https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800"], desc: "Kadife kumaştan geleneksel tasarım.", sizesData: [{name:"M", detail:"Bel 72cm"}] },
-            { id: 2, title: "Saten Dokuma Şalvar", category: "Günlük Giyim", price: "950", imgs: ["https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800"], desc: "Hafif saten dokuma günlük model.", sizesData: [{name:"L", detail:"Bel 78cm"}] },
-            { id: 3, title: "Özel Davet Şalvarı", category: "Koleksiyon", price: "1750", imgs: ["https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800"], desc: "Zarif nakış detaylı davet modeli.", sizesData: [{name:"S", detail:"Bel 66cm"}] }
+            {
+                id: 1,
+                code: "ZRF-101",
+                title: "Kadife İşlemeli Şalvar",
+                category: "Özel Tasarım Şalvar",
+                price: "1250",
+                stock: "stokta",
+                badge: "Yeni Sezon",
+                coverIndex: 0,
+                imgs: [
+                    "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800"
+                ],
+                desc: "Yüksek kaliteli kadife kumaştan üretilmiş, otantik nakış detaylı özel şalvar.",
+                sizesData: [{name:"S", detail:"Bel 68cm, Boy 98cm"}, {name:"M", detail:"Bel 72cm, Boy 100cm"}]
+            },
+            {
+                id: 2,
+                code: "ZRF-102",
+                title: "Saten Dokuma Şalvar",
+                category: "Günlük Giyim",
+                price: "950",
+                stock: "stokta",
+                badge: "Çok Satan",
+                coverIndex: 0,
+                imgs: ["https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800"],
+                desc: "Günlük kullanım için dökümlü ve rahat saten dokuma model.",
+                sizesData: [{name:"M", detail:"Bel 72cm, Boy 100cm"}, {name:"L", detail:"Bel 78cm, Boy 102cm"}]
+            },
+            {
+                id: 3,
+                code: "ZRF-103",
+                title: "Özel Davet Şalvar Kombini",
+                category: "Koleksiyon",
+                price: "1750",
+                stock: "az_stok",
+                badge: "Özel Koleksiyon",
+                coverIndex: 0,
+                imgs: ["https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800"],
+                desc: "Düğün ve kına gibi özel günleriniz için şık ve gösterişli şalvar kombini.",
+                sizesData: [{name:"M", detail:"Bel 72cm"}, {name:"L", detail:"Bel 78cm"}]
+            }
         ];
 
         let currentSelectedProduct = null;
         let selectedSize = '';
         let currentActiveImgIndex = 0;
         let editingProductImgs = [];
+        let selectedCoverIndex = 0;
         let editingSizesMap = {};
 
         // LIGHTBOX ZOOM DEĞİŞKENLERİ
         let scale = 1, panning = false, pointX = 0, pointY = 0, startX = 0, startY = 0;
         let initialDistance = null, initialScale = 1;
+
+        function updateStatsDashboard() {
+            document.getElementById('statTotalProducts').innerText = products.length;
+            document.getElementById('statTotalCategories').innerText = categories.length;
+            document.getElementById('statTotalUsers').innerText = registeredUsers.length;
+            document.getElementById('statTotalOrders').innerText = orders.length;
+            document.getElementById('userCountBadge').innerText = registeredUsers.length;
+        }
 
         function applySiteSettings() {
             document.getElementById('bannerText').innerText = siteSettings.banner;
@@ -419,7 +607,7 @@
             document.getElementById('contactPhone').innerText = siteSettings.phone;
             document.getElementById('contactEmail').innerText = siteSettings.email;
             document.getElementById('contactAddress').innerText = siteSettings.address;
-            document.getElementById('userCountBadge').innerText = registeredUsers.length;
+            updateStatsDashboard();
             updateNavbarAuthArea();
             renderDynamicRegisterForm();
         }
@@ -433,28 +621,309 @@
             box.style.backgroundPosition = `center ${document.getElementById('setHeroPosY').value}%`;
         }
 
-        function renderDynamicRegisterForm() {
-            const form = document.getElementById('dynamicRegisterForm');
-            if(!form) return;
-            form.innerHTML = '';
-            memberFormFields.forEach(f => {
-                if(f.enabled) form.innerHTML += `<div><label class="block text-xs font-bold uppercase mb-1">${f.label} *</label><input type="${f.type}" id="reg_${f.id}" required class="w-full px-4 py-3 rounded-xl border text-sm"></div>`;
-            });
-            form.innerHTML += `<button type="submit" class="w-full bg-purple-950 text-white font-medium py-3 rounded-xl mt-2">Kayıt Ol</button>`;
+        function generateProductCode() {
+            const randomNum = Math.floor(100 + Math.random() * 900);
+            document.getElementById('newCode').value = `ZRF-${randomNum}`;
         }
 
-        function renderAdminFormFieldsConfig() {
-            const container = document.getElementById('formFieldsConfigList');
+        function setCoverImage(idx) {
+            selectedCoverIndex = idx;
+            renderAdminThumbnails();
+        }
+
+        function renderAdminThumbnails() {
+            const c = document.getElementById('adminThumbnailsContainer');
+            if(!c) return;
+            c.innerHTML = '';
+            if(editingProductImgs.length === 0) {
+                c.innerHTML = `<p class="text-xs text-stone-400 col-span-full">Henüz fotoğraf eklenmedi.</p>`;
+                return;
+            }
+
+            if(selectedCoverIndex >= editingProductImgs.length) {
+                selectedCoverIndex = 0;
+            }
+
+            editingProductImgs.forEach((img, idx) => {
+                const isCover = (idx === selectedCoverIndex);
+                c.innerHTML += `
+                    <div class="relative group rounded-xl overflow-hidden border-2 transition ${isCover ? 'border-purple-900 ring-2 ring-purple-300' : 'border-stone-200'} bg-white">
+                        <img src="${img}" class="w-full h-24 object-cover">
+                        ${isCover ? '<span class="absolute top-1 left-1 bg-purple-900 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">KAPAK</span>' : ''}
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col justify-between p-1.5">
+                            <button type="button" onclick="editingProductImgs.splice(${idx},1); if(selectedCoverIndex===${idx}) selectedCoverIndex=0; renderAdminThumbnails();" class="self-end bg-red-600 text-white w-5 h-5 rounded-full text-xs flex items-center justify-center shadow"><i class="fa-solid fa-xmark"></i></button>
+                            ${!isCover ? `<button type="button" onclick="setCoverImage(${idx})" class="w-full bg-purple-950 hover:bg-purple-900 text-white text-[10px] font-bold py-1 rounded shadow">Kapak Resmi Yap</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('newImgs').value = editingProductImgs.join(', ');
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            if(!grid) return;
+            grid.innerHTML = products.map(p => {
+                const coverIdx = (p.coverIndex !== undefined && p.coverIndex < p.imgs.length) ? p.coverIndex : 0;
+                const coverImg = (p.imgs && p.imgs.length > 0) ? p.imgs[coverIdx] : "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800";
+                
+                let stockBadge = '';
+                if(p.stock === 'az_stok') stockBadge = `<span class="bg-amber-100 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded-full">Az Stok</span>`;
+                else if(p.stock === 'stoksuz') stockBadge = `<span class="bg-red-100 text-red-900 text-[10px] font-bold px-2 py-0.5 rounded-full">Stok Tükendi</span>`;
+
+                return `
+                    <div class="bg-white rounded-2xl overflow-hidden border border-stone-200 hover:shadow-xl transition duration-300 flex flex-col justify-between group cursor-pointer" onclick="openProductModal(${p.id})">
+                        <div class="relative aspect-[4/5] bg-stone-100 overflow-hidden">
+                            <img src="${coverImg}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 left-3 flex flex-col items-start gap-1">
+                                <span class="bg-stone-900/90 text-white text-[10px] font-mono font-bold px-2.5 py-1 rounded-md backdrop-blur-sm">${p.code || 'ZRF-100'}</span>
+                                ${p.badge ? `<span class="bg-purple-900 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow">${p.badge}</span>` : ''}
+                            </div>
+                            <div class="absolute top-3 right-3">
+                                ${stockBadge}
+                            </div>
+                            <span class="absolute bottom-3 right-3 bg-stone-900/80 text-white text-[10px] font-bold px-2 py-1 rounded-md backdrop-blur-sm">
+                                <i class="fa-regular fa-images mr-1"></i> ${(p.imgs ? p.imgs.length : 1)}
+                            </span>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow justify-between">
+                            <div>
+                                <span class="text-[11px] font-bold text-purple-800 uppercase tracking-wider">${p.category}</span>
+                                <h3 class="font-serif text-lg font-bold text-stone-900 mt-1 group-hover:text-purple-900 transition">${p.title}</h3>
+                                <p class="text-stone-500 text-xs mt-1 line-clamp-2">${p.desc}</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+                                <span class="text-lg font-bold text-purple-950">${p.price} TL</span>
+                                <span class="text-xs font-bold text-purple-900 bg-purple-50 px-3 py-1.5 rounded-lg group-hover:bg-purple-900 group-hover:text-white transition">İncele & Sipariş</span>
+                            </div>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        function openProductModal(id) {
+            currentSelectedProduct = products.find(p => p.id === id);
+            if(!currentSelectedProduct) return;
+            if(!currentSelectedProduct.imgs) currentSelectedProduct.imgs = ["https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800"];
+            if(!currentSelectedProduct.sizesData) currentSelectedProduct.sizesData = [{name: 'M', detail: 'Standart Ölçü'}];
+            
+            currentActiveImgIndex = (currentSelectedProduct.coverIndex !== undefined && currentSelectedProduct.coverIndex < currentSelectedProduct.imgs.length) ? currentSelectedProduct.coverIndex : 0;
+            
+            updateModalImages();
+            document.getElementById('modalCode').innerText = currentSelectedProduct.code || 'ZRF-100';
+            document.getElementById('modalCategory').innerText = currentSelectedProduct.category;
+            document.getElementById('modalTitle').innerText = currentSelectedProduct.title;
+            document.getElementById('modalPrice').innerText = currentSelectedProduct.price + " TL";
+            document.getElementById('modalDesc').innerText = currentSelectedProduct.desc;
+            selectedSize = currentSelectedProduct.sizesData[0].name;
+            renderModalSizes();
+            document.getElementById('productModal').classList.remove('hidden');
+            document.getElementById('productModal').classList.add('flex');
+        }
+
+        function updateModalImages() {
+            document.getElementById('modalMainImg').src = currentSelectedProduct.imgs[currentActiveImgIndex];
+            document.getElementById('modalThumbnails').innerHTML = currentSelectedProduct.imgs.map((img, idx) => `
+                <img src="${img}" onclick="currentActiveImgIndex=${idx};updateModalImages();" class="w-16 h-16 object-cover rounded-lg border-2 cursor-pointer transition ${idx === currentActiveImgIndex ? 'border-purple-950 ring-2' : 'border-stone-200 opacity-70'}">
+            `).join('');
+        }
+
+        function renderModalSizes() {
+            document.getElementById('modalSizes').innerHTML = currentSelectedProduct.sizesData.map(s => `
+                <button type="button" onclick="selectedSize='${s.name}';renderModalSizes();" class="px-4 py-2 rounded-xl border text-sm font-semibold transition ${s.name === selectedSize ? 'bg-purple-950 text-white border-purple-950' : 'bg-white text-stone-700'}">${s.name}</button>
+            `).join('');
+            const found = currentSelectedProduct.sizesData.find(s => s.name === selectedSize);
+            document.getElementById('sizeGuideBox').innerHTML = `<strong>Seçilen Beden (${selectedSize}) Ölçüleri:</strong> ${found ? found.detail : 'Belirtilmemiş'}`;
+        }
+
+        function closeProductModal() { document.getElementById('productModal').classList.remove('flex'); document.getElementById('productModal').classList.add('hidden'); }
+        function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').classList.remove('hidden'); document.getElementById('lightboxModal').classList.add('flex'); }
+        function closeLightbox(e) { document.getElementById('lightboxModal').classList.remove('flex'); document.getElementById('lightboxModal').classList.add('hidden'); }
+
+        function addToCartFromModal() {
+            if(!currentUser) { alert('Lütfen giriş yapın!'); openAuthModal(); return; }
+            cart.push({ id: Date.now(), code: currentSelectedProduct.code, title: currentSelectedProduct.title, price: currentSelectedProduct.price, size: selectedSize, img: currentSelectedProduct.imgs[0] });
+            localStorage.setItem('zerafet_cart', JSON.stringify(cart));
+            alert('Ürün sepetinize eklendi!');
+            closeProductModal();
+        }
+
+        function orderViaWhatsApp() {
+            if(!currentSelectedProduct) return;
+            const clean = siteSettings.phone.replace(/\D/g, '');
+            const codeText = currentSelectedProduct.code ? `[Ürün Kodu: ${currentSelectedProduct.code}] ` : '';
+            const msg = `Merhaba, Zerafet Moda Evi'nden ${codeText}"${currentSelectedProduct.title}" ürününü sipariş etmek istiyorum. Beden: ${selectedSize}, Fiyat: ${currentSelectedProduct.price} TL.`;
+            window.open(`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // FİLTRELEME VE ARAMA
+        function filterAdminProducts() {
+            const query = document.getElementById('adminProductSearch').value.toLowerCase().trim();
+            const catFilter = document.getElementById('adminCategoryFilter').value;
+            const stockFilter = document.getElementById('adminStockFilter').value;
+
+            const filtered = products.filter(p => {
+                const matchesQuery = !query || (p.title && p.title.toLowerCase().includes(query)) || (p.code && p.code.toLowerCase().includes(query));
+                const matchesCat = catFilter === 'all' || p.category === catFilter;
+                const matchesStock = stockFilter === 'all' || p.stock === stockFilter;
+                return matchesQuery && matchesCat && matchesStock;
+            });
+
+            renderAdminProductListCustom(filtered);
+        }
+
+        function renderAdminProductListCustom(list) {
+            const container = document.getElementById('adminProductList');
             if(!container) return;
             container.innerHTML = '';
-            memberFormFields.forEach(f => {
-                container.innerHTML += `<div class="flex justify-between bg-stone-50 p-4 rounded-xl border text-sm"><h4>${f.label}</h4><input type="checkbox" ${f.enabled ? 'checked' : ''} onchange="toggleFormFieldStatus('${f.id}')" class="w-5 h-5 accent-purple-900"></div>`;
+
+            if(list.length === 0) {
+                container.innerHTML = `<p class="text-stone-400 text-sm py-4 text-center">Aramanıza uygun ürün bulunamadı.</p>`;
+                return;
+            }
+
+            list.forEach(p => {
+                const coverIdx = (p.coverIndex !== undefined && p.coverIndex < p.imgs.length) ? p.coverIndex : 0;
+                const cover = p.imgs ? p.imgs[coverIdx] : '';
+
+                let stockText = '<span class="text-emerald-600 font-bold">Stokta</span>';
+                if(p.stock === 'az_stok') stockText = '<span class="text-amber-600 font-bold">Az Stok</span>';
+                else if(p.stock === 'stoksuz') stockText = '<span class="text-red-600 font-bold">Stok Tükendi</span>';
+
+                container.innerHTML += `
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-stone-50 p-4 rounded-xl border border-stone-200 text-sm gap-4 hover:border-purple-200 transition">
+                        <div class="flex items-center gap-4">
+                            <img src="${cover}" class="w-14 h-14 object-cover rounded-lg border border-stone-200 flex-shrink-0">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-mono font-bold text-xs bg-stone-900 text-white px-2 py-0.5 rounded">${p.code || 'KODSUZ'}</span>
+                                    <span class="text-xs font-bold text-purple-900 bg-purple-100 px-2 py-0.5 rounded">${p.category}</span>
+                                    ${p.badge ? `<span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded">${p.badge}</span>` : ''}
+                                </div>
+                                <h4 class="font-bold text-stone-900 text-base mt-1">${p.title}</h4>
+                                <p class="text-xs text-stone-500">${p.price} TL • Durum: ${stockText} • Fotoğraf: ${p.imgs ? p.imgs.length : 1} adet</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                            <button onclick="editProduct(${p.id})" class="bg-amber-100 hover:bg-amber-200 text-amber-900 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1">
+                                <i class="fa-solid fa-pen-to-square"></i> Düzenle
+                            </button>
+                            <button onclick="deleteProduct(${p.id})" class="bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1">
+                                <i class="fa-solid fa-trash"></i> Sil
+                            </button>
+                        </div>
+                    </div>
+                `;
             });
         }
 
-        function toggleFormFieldStatus(id) {
-            const f = memberFormFields.find(x => x.id === id);
-            if(f) { f.enabled = !f.enabled; localStorage.setItem('zerafet_form_fields', JSON.stringify(memberFormFields)); renderDynamicRegisterForm(); }
+        function renderAdminProductList() {
+            filterAdminProducts();
+        }
+
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editProductId').value;
+            const codeVal = document.getElementById('newCode').value.trim();
+            const manualText = document.getElementById('newImgs').value;
+            
+            let finalImgs = [...editingProductImgs];
+            if(manualText.trim() !== '') {
+                const manualList = manualText.split(/[\n,]+/).map(u => u.trim()).filter(u => u.length > 0);
+                manualList.forEach(url => { if(!finalImgs.includes(url)) finalImgs.push(url); });
+            }
+
+            if(finalImgs.length === 0) {
+                finalImgs = ["https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800"];
+            }
+
+            let sizesDataArr = [];
+            Object.keys(editingSizesMap).forEach(k => {
+                sizesDataArr.push({ name: k, detail: editingSizesMap[k] || 'Standart Ölçü' });
+            });
+            if(sizesDataArr.length === 0) sizesDataArr.push({ name: 'Standart', detail: 'Standart Ölçü' });
+
+            const data = {
+                id: editId ? Number(editId) : Date.now(),
+                code: codeVal || `ZRF-${Math.floor(100 + Math.random()*900)}`,
+                title: document.getElementById('newTitle').value,
+                category: document.getElementById('newCategory').value,
+                price: document.getElementById('newPrice').value,
+                stock: document.getElementById('newStock').value,
+                badge: document.getElementById('newBadge').value.trim(),
+                imgs: finalImgs,
+                coverIndex: selectedCoverIndex < finalImgs.length ? selectedCoverIndex : 0,
+                desc: document.getElementById('newDesc').value,
+                sizesData: sizesDataArr
+            };
+
+            if(editId) {
+                const idx = products.findIndex(p => p.id === data.id);
+                if(idx !== -1) products[idx] = data;
+                alert('Ürün başarıyla güncellendi!');
+            } else {
+                products.unshift(data);
+                alert('Yeni ürün başarıyla eklendi!');
+            }
+
+            localStorage.setItem('zerafet_products', JSON.stringify(products));
+            updateStatsDashboard();
+            renderAdminProductList();
+            resetProductForm();
+        }
+
+        function editProduct(id) {
+            const p = products.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('editProductId').value = p.id;
+            document.getElementById('newCode').value = p.code || '';
+            document.getElementById('newTitle').value = p.title;
+            document.getElementById('newCategory').value = p.category;
+            document.getElementById('newPrice').value = p.price;
+            document.getElementById('newStock').value = p.stock || 'stokta';
+            document.getElementById('newBadge').value = p.badge || '';
+            document.getElementById('newDesc').value = p.desc;
+            
+            editingProductImgs = p.imgs ? [...p.imgs] : [];
+            selectedCoverIndex = p.coverIndex !== undefined ? p.coverIndex : 0;
+            
+            editingSizesMap = {};
+            if(p.sizesData) {
+                p.sizesData.forEach(s => editingSizesMap[s.name] = s.detail);
+            }
+            renderAdminThumbnails();
+            renderEditingSizesUI();
+
+            document.getElementById('productFormTitle').innerText = "Ürünü Düzenle";
+            document.getElementById('cancelEditBtn').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('productFormTitle').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function resetProductForm() {
+            document.getElementById('editProductId').value = '';
+            generateProductCode();
+            document.getElementById('newTitle').value = '';
+            document.getElementById('newPrice').value = '';
+            document.getElementById('newBadge').value = '';
+            document.getElementById('newImgs').value = '';
+            document.getElementById('newDesc').value = '';
+            editingProductImgs = [];
+            selectedCoverIndex = 0;
+            editingSizesMap = {};
+            renderAdminThumbnails();
+            renderEditingSizesUI();
+
+            document.getElementById('productFormTitle').innerText = "Yeni Ürün Ekle & Düzenle";
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+        }
+
+        function deleteProduct(id) {
+            if(confirm('Bu ürünü silmek istediğinize emin misiniz?')) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('zerafet_products', JSON.stringify(products));
+                updateStatsDashboard();
+                renderAdminProductList();
+            }
         }
 
         function toggleSizeSelection(sz) {
@@ -463,28 +932,127 @@
         }
 
         function renderEditingSizesUI() {
-            ['S', 'M', 'L', 'XL', 'Standart'].forEach(sz => {
+            ['S', 'M', 'L', 'XL', 'XXL', 'Standart'].forEach(sz => {
                 const btn = document.getElementById(`sizeBtn-${sz}`);
-                if(btn) btn.className = editingSizesMap[sz] !== undefined ? "px-4 py-2 rounded-xl text-xs border font-bold bg-purple-950 text-white" : "px-4 py-2 rounded-xl text-xs border font-bold bg-white";
+                if(btn) btn.className = editingSizesMap[sz] !== undefined ? "px-4 py-2 rounded-xl text-xs border font-bold bg-purple-950 text-white shadow-sm" : "px-4 py-2 rounded-xl text-xs border font-bold bg-white text-stone-700";
             });
             const container = document.getElementById('selectedSizesDetailContainer');
             if(!container) return;
             container.innerHTML = '';
             Object.keys(editingSizesMap).forEach(sz => {
-                container.innerHTML += `<div class="flex gap-3 bg-white p-3 rounded-xl border"><span class="w-20 font-bold text-xs bg-purple-100 text-purple-900 py-1.5 px-3 rounded-lg text-center">${sz}</span><input type="text" value="${editingSizesMap[sz]}" oninput="editingSizesMap['${sz}']=this.value" class="flex-grow px-3 py-2 rounded-lg border text-xs"></div>`;
+                container.innerHTML += `
+                    <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-stone-200">
+                        <span class="w-20 font-bold text-xs bg-purple-100 text-purple-900 py-1.5 px-3 rounded-lg text-center">${sz}</span>
+                        <input type="text" value="${editingSizesMap[sz]}" placeholder="Örn: Bel 72cm, Boy 100cm" oninput="editingSizesMap['${sz}']=this.value" class="flex-grow px-3 py-1.5 rounded-lg border border-stone-300 text-xs">
+                    </div>
+                `;
+            });
+        }
+
+        function handleLocalFiles(e) {
+            const files = e.target.files;
+            for(let i=0; i<files.length; i++) {
+                const r = new FileReader();
+                r.onload = (ev) => { editingProductImgs.push(ev.target.result); renderAdminThumbnails(); }
+                r.readAsDataURL(files[i]);
+            }
+        }
+
+        function renderCategorySelects() {
+            const el = document.getElementById('newCategory');
+            const filterEl = document.getElementById('adminCategoryFilter');
+            if(el) {
+                el.innerHTML = '';
+                categories.forEach(c => el.innerHTML += `<option value="${c}">${c}</option>`);
+            }
+            if(filterEl) {
+                filterEl.innerHTML = `<option value="all">Tüm Kategoriler</option>`;
+                categories.forEach(c => filterEl.innerHTML += `<option value="${c}">${c}</option>`);
+            }
+        }
+
+        function addNewCategory(e) {
+            e.preventDefault();
+            const name = document.getElementById('newCategoryName').value.trim();
+            if(name && !categories.includes(name)) {
+                categories.push(name);
+                localStorage.setItem('zerafet_categories', JSON.stringify(categories));
+                renderAdminCategoryList();
+                renderCategorySelects();
+                updateStatsDashboard();
+                document.getElementById('newCategoryName').value = '';
+                alert('Kategori eklendi!');
+            }
+        }
+
+        function deleteCategory(c) {
+            if(categories.length <= 1) { alert('En az bir kategori kalmalı!'); return; }
+            categories = categories.filter(x => x !== c);
+            localStorage.setItem('zerafet_categories', JSON.stringify(categories));
+            renderAdminCategoryList();
+            renderCategorySelects();
+            updateStatsDashboard();
+        }
+
+        function renderAdminCategoryList() {
+            const list = document.getElementById('adminCategoryList');
+            if(list) list.innerHTML = categories.map(c => `<div class="flex justify-between items-center bg-stone-50 p-4 rounded-xl border text-sm"><span class="font-bold text-stone-900">${c}</span><button onclick="deleteCategory('${c}')" class="text-red-600 p-2"><i class="fa-solid fa-trash"></i></button></div>`).join('');
+        }
+
+        function renderAdminUserList() {
+            const list = document.getElementById('adminUserList');
+            if(list) list.innerHTML = registeredUsers.map(u => `<div class="bg-stone-50 p-4 rounded-xl border text-sm"><h4 class="font-bold">${u.name}</h4><span class="text-xs text-stone-500">${u.email} • ${u.phone}</span></div>`).join('');
+        }
+
+        function openAdminPage() {
+            document.getElementById('mainWebsiteView').classList.add('hidden');
+            document.getElementById('adminPageView').classList.remove('hidden');
+            document.getElementById('setBanner').value = siteSettings.banner;
+            document.getElementById('setHeroImg').value = siteSettings.heroImg;
+            document.getElementById('setHeroPosY').value = siteSettings.heroPosY || 50;
+            document.getElementById('setHeroTitle').value = siteSettings.heroTitle;
+            document.getElementById('setHeroDesc').value = siteSettings.heroDesc;
+            document.getElementById('setPhone').value = siteSettings.phone;
+            document.getElementById('setEmail').value = siteSettings.email;
+            document.getElementById('setAddress').value = siteSettings.address;
+            
+            renderCategorySelects();
+            renderAdminCategoryList();
+            renderAdminProductList();
+            renderAdminUserList();
+            renderAdminFormFieldsConfig();
+            generateProductCode();
+            switchAdminTab('products');
+        }
+
+        function exitAdminToHome() {
+            currentUser = null;
+            localStorage.removeItem('zerafet_current_user');
+            document.getElementById('adminPageView').classList.add('hidden');
+            document.getElementById('mainWebsiteView').classList.remove('hidden');
+            applySiteSettings();
+            renderProducts();
+        }
+
+        function switchAdminTab(t) {
+            ['products', 'settings', 'categories', 'users', 'formfields'].forEach(tab => {
+                const el = document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+                const btn = document.getElementById(`tabBtn${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+                if(el) el.classList.toggle('hidden', tab !== t);
+                if(btn) btn.className = tab === t ? "whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-purple-950 text-white transition flex items-center gap-2" : "whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm bg-stone-100 text-stone-700 hover:bg-stone-200 transition flex items-center gap-2";
             });
         }
 
         function updateNavbarAuthArea() {
             const area = document.getElementById('navAuthArea');
             if (currentUser) {
-                area.innerHTML = `<button onclick="${currentUser.name === 'Admin' ? 'openAdminPage()' : 'openCustomerPortal()'}" class="bg-purple-100 text-purple-950 px-4 py-2 rounded-full text-sm font-medium mr-2">${currentUser.name}</button><button onclick="logoutUser()" class="text-stone-400 hover:text-red-600"><i class="fa-solid fa-right-from-bracket"></i></button>`;
+                area.innerHTML = `<button onclick="${currentUser.name === 'Admin' ? 'openAdminPage()' : 'openCustomerPortal()'}" class="bg-purple-100 text-purple-950 px-4 py-2 rounded-full text-sm font-medium mr-2"><i class="fa-solid fa-user-circle mr-1"></i> ${currentUser.name}</button><button onclick="logoutUser()" class="text-stone-400 hover:text-red-600 p-2"><i class="fa-solid fa-right-from-bracket"></i></button>`;
             } else {
                 area.innerHTML = `<button onclick="openAuthModal()" class="bg-purple-950 text-white px-5 py-2 rounded-full text-sm font-medium"><i class="fa-regular fa-user"></i> Üye Girişi</button>`;
             }
         }
 
-        function logoutUser() { currentUser = null; localStorage.removeItem('zerafet_current_user'); applySiteSettings(); }
+        function logoutUser() { currentUser = null; localStorage.removeItem('zerafet_current_user'); applySiteSettings(); alert('Çıkış yapıldı.'); }
 
         function saveSiteSettings(e) {
             e.preventDefault();
@@ -501,124 +1069,25 @@
             alert('Ayarlar kaydedildi!');
         }
 
-        function renderCategorySelects() {
-            const el = document.getElementById('newCategory');
-            if(!el) return;
-            el.innerHTML = '';
-            categories.forEach(c => el.innerHTML += `<option value="${c}">${c}</option>`);
+        function renderDynamicRegisterForm() {
+            const form = document.getElementById('dynamicRegisterForm');
+            if(!form) return;
+            form.innerHTML = '';
+            memberFormFields.forEach(f => {
+                if(f.enabled) form.innerHTML += `<div><label class="block text-xs font-bold uppercase mb-1">${f.label} *</label><input type="${f.type}" id="reg_${f.id}" required class="w-full px-4 py-3 rounded-xl border text-sm"></div>`;
+            });
+            form.innerHTML += `<button type="submit" class="w-full bg-purple-950 text-white font-medium py-3 rounded-xl mt-2">Kayıt Ol</button>`;
         }
 
-        function addNewCategory(e) {
-            e.preventDefault();
-            const name = document.getElementById('newCategoryName').value.trim();
-            if(name && !categories.includes(name)) {
-                categories.push(name);
-                localStorage.setItem('zerafet_categories', JSON.stringify(categories));
-                renderAdminCategoryList();
-                renderCategorySelects();
-                document.getElementById('newCategoryName').value = '';
-            }
+        function renderAdminFormFieldsConfig() {
+            const container = document.getElementById('formFieldsConfigList');
+            if(!container) return;
+            container.innerHTML = memberFormFields.map(f => `<div class="flex justify-between bg-stone-50 p-4 rounded-xl border text-sm"><h4>${f.label}</h4><input type="checkbox" ${f.enabled ? 'checked' : ''} onchange="toggleFormFieldStatus('${f.id}')" class="w-5 h-5 accent-purple-900"></div>`).join('');
         }
 
-        function deleteCategory(c) {
-            if(categories.length <= 1) return;
-            categories = categories.filter(x => x !== c);
-            localStorage.setItem('zerafet_categories', JSON.stringify(categories));
-            renderAdminCategoryList();
-            renderCategorySelects();
-        }
-
-        function renderAdminCategoryList() {
-            const list = document.getElementById('adminCategoryList');
-            if(list) list.innerHTML = categories.map(c => `<div class="flex justify-between bg-stone-50 p-4 rounded-xl border text-sm"><span>${c}</span><button onclick="deleteCategory('${c}')" class="text-red-600"><i class="fa-solid fa-trash"></i></button></div>`).join('');
-        }
-
-        function renderAdminUserList() {
-            const list = document.getElementById('adminUserList');
-            if(list) list.innerHTML = registeredUsers.map(u => `<div class="bg-stone-50 p-4 rounded-xl border text-sm"><b>${u.name}</b><br><span class="text-xs">${u.email} • ${u.phone}</span></div>`).join('');
-        }
-
-        function handleLocalFiles(e) {
-            const files = e.target.files;
-            for(let i=0; i<files.length; i++) {
-                const r = new FileReader();
-                r.onload = (ev) => { editingProductImgs.push(ev.target.result); renderAdminThumbnails(); }
-                r.readAsDataURL(files[i]);
-            }
-        }
-
-        function renderAdminThumbnails() {
-            const c = document.getElementById('adminThumbnailsContainer');
-            if(c) {
-                c.innerHTML = editingProductImgs.map((img, idx) => `<div class="relative w-16 h-16 border"><img src="${img}" class="w-full h-full object-cover"><button type="button" onclick="editingProductImgs.splice(${idx},1);renderAdminThumbnails();" class="absolute top-0 right-0 bg-red-600 text-white w-5 h-5 text-xs">×</button></div>`).join('');
-                document.getElementById('newImgs').value = editingProductImgs.join(', ');
-            }
-        }
-
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            if(!grid) return;
-            grid.innerHTML = products.map(p => {
-                const cover = p.imgs ? p.imgs[0] : p.img;
-                return `
-                    <div class="bg-white rounded-2xl overflow-hidden border hover:shadow-xl transition cursor-pointer" onclick="openProductModal(${p.id})">
-                        <div class="relative aspect-[4/5] bg-stone-100">
-                            <img src="${cover}" class="w-full h-full object-cover">
-                            <span class="absolute top-4 left-4 bg-white/90 text-purple-950 text-xs font-bold px-3 py-1 rounded-full">${p.category}</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold">${p.title}</h3>
-                            <div class="mt-4 flex justify-between items-center border-t pt-4">
-                                <span class="text-lg font-bold text-purple-950">${p.price} TL</span>
-                                <span class="text-xs font-bold bg-purple-50 text-purple-900 px-3 py-1.5 rounded-lg">İncele</span>
-                            </div>
-                        </div>
-                    </div>`;
-            }).join('');
-        }
-
-        function openProductModal(id) {
-            currentSelectedProduct = products.find(p => p.id === id);
-            if(!currentSelectedProduct) return;
-            currentActiveImgIndex = 0;
-            updateModalImages();
-            document.getElementById('modalCategory').innerText = currentSelectedProduct.category;
-            document.getElementById('modalTitle').innerText = currentSelectedProduct.title;
-            document.getElementById('modalPrice').innerText = currentSelectedProduct.price + " TL";
-            document.getElementById('modalDesc').innerText = currentSelectedProduct.desc;
-            selectedSize = currentSelectedProduct.sizesData[0].name;
-            renderModalSizes();
-            document.getElementById('productModal').classList.remove('hidden');
-            document.getElementById('productModal').classList.add('flex');
-        }
-
-        function updateModalImages() {
-            document.getElementById('modalMainImg').src = currentSelectedProduct.imgs[currentActiveImgIndex];
-            document.getElementById('modalThumbnails').innerHTML = currentSelectedProduct.imgs.map((img, idx) => `<img src="${img}" onclick="currentActiveImgIndex=${idx};updateModalImages();" class="w-16 h-16 object-cover rounded-lg border-2 cursor-pointer ${idx === currentActiveImgIndex ? 'border-purple-950' : 'border-stone-200'}">`).join('');
-        }
-
-        function renderModalSizes() {
-            document.getElementById('modalSizes').innerHTML = currentSelectedProduct.sizesData.map(s => `<button type="button" onclick="selectedSize='${s.name}';renderModalSizes();" class="px-4 py-2 rounded-xl border text-sm font-semibold ${s.name === selectedSize ? 'bg-purple-950 text-white' : 'bg-white'}">${s.name}</button>`).join('');
-            const found = currentSelectedProduct.sizesData.find(s => s.name === selectedSize);
-            document.getElementById('sizeGuideBox').innerHTML = `<strong>${selectedSize} Ölçüleri:</strong> ${found ? found.detail : 'Belirtilmemiş'}`;
-        }
-
-        function closeProductModal() { document.getElementById('productModal').classList.remove('flex'); document.getElementById('productModal').classList.add('hidden'); }
-        function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').classList.remove('hidden'); document.getElementById('lightboxModal').classList.add('flex'); }
-        function closeLightbox(e) { document.getElementById('lightboxModal').classList.remove('flex'); document.getElementById('lightboxModal').classList.add('hidden'); }
-
-        function addToCartFromModal() {
-            if(!currentUser) { alert('Lütfen giriş yapın!'); openAuthModal(); return; }
-            cart.push({ id: Date.now(), title: currentSelectedProduct.title, price: currentSelectedProduct.price, size: selectedSize, img: currentSelectedProduct.imgs[0] });
-            localStorage.setItem('zerafet_cart', JSON.stringify(cart));
-            alert('Sepete eklendi!');
-            closeProductModal();
-        }
-
-        function orderViaWhatsApp() {
-            if(!currentSelectedProduct) return;
-            const clean = siteSettings.phone.replace(/\D/g, '');
-            window.open(`https://wa.me/${clean}?text=${encodeURIComponent(`Merhaba, "${currentSelectedProduct.title}" (${selectedSize} beden,${currentSelectedProduct.price} TL) sipariş etmek istiyorum.`)}`, '_blank');
+        function toggleFormFieldStatus(id) {
+            const f = memberFormFields.find(x => x.id === id);
+            if(f) { f.enabled = !f.enabled; localStorage.setItem('zerafet_form_fields', JSON.stringify(memberFormFields)); renderDynamicRegisterForm(); }
         }
 
         function openAuthModal() { switchAuthView('login'); document.getElementById('authModal').classList.remove('hidden'); document.getElementById('authModal').classList.add('flex'); }
@@ -658,40 +1127,6 @@
             openCustomerPortal();
         }
 
-        function openAdminPage() {
-            document.getElementById('mainWebsiteView').classList.add('hidden');
-            document.getElementById('adminPageView').classList.remove('hidden');
-            document.getElementById('setBanner').value = siteSettings.banner;
-            document.getElementById('setHeroImg').value = siteSettings.heroImg;
-            document.getElementById('setHeroPosY').value = siteSettings.heroPosY || 50;
-            document.getElementById('setHeroTitle').value = siteSettings.heroTitle;
-            document.getElementById('setHeroDesc').value = siteSettings.heroDesc;
-            document.getElementById('setPhone').value = siteSettings.phone;
-            document.getElementById('setEmail').value = siteSettings.email;
-            document.getElementById('setAddress').value = siteSettings.address;
-            renderCategorySelects();
-            renderAdminCategoryList();
-            renderAdminProductList();
-            renderAdminUserList();
-            renderAdminFormFieldsConfig();
-            switchAdminTab('settings');
-        }
-
-        function exitAdminToHome() {
-            currentUser = null;
-            localStorage.removeItem('zerafet_current_user');
-            document.getElementById('adminPageView').classList.add('hidden');
-            document.getElementById('mainWebsiteView').classList.remove('hidden');
-            applySiteSettings();
-            renderProducts();
-        }
-
-        function switchAdminTab(t) {
-            ['settings', 'categories', 'products', 'users', 'formfields'].forEach(tab => {
-                document.getElementById(`adminTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.toggle('hidden', tab !== t);
-            });
-        }
-
         function openCustomerPortal() {
             if(currentUser && currentUser.name === 'Admin') { openAdminPage(); return; }
             document.getElementById('portalUserName').innerText = currentUser.name;
@@ -714,7 +1149,7 @@
             let total = 0;
             cart.forEach((i, idx) => {
                 total += Number(i.price);
-                list.innerHTML += `<div class="flex justify-between items-center bg-white p-3 rounded-xl border text-sm"><span>${i.title} (${i.size}) - ${i.price} TL</span><button onclick="cart.splice(${idx},1);localStorage.setItem('zerafet_cart',JSON.stringify(cart));renderCustomerCart();" class="text-red-600"><i class="fa-solid fa-trash"></i></button></div>`;
+                list.innerHTML += `<div class="flex justify-between items-center bg-white p-3 rounded-xl border text-sm"><span><b>[${i.code || 'KODSUZ'}]</b> ${i.title} (${i.size}) - ${i.price} TL</span><button onclick="cart.splice(${idx},1);localStorage.setItem('zerafet_cart',JSON.stringify(cart));renderCustomerCart();" class="text-red-600"><i class="fa-solid fa-trash"></i></button></div>`;
             });
             document.getElementById('cartTotalPrice').innerText = total + " TL";
         }
@@ -734,75 +1169,12 @@
             alert('Siparişiniz alındı!');
         }
 
-        function handleProductSubmit(e) {
-            e.preventDefault();
-            const editId = document.getElementById('editProductId').value;
-            const manual = document.getElementById('newImgs').value.split(',').map(s => s.trim()).filter(Boolean);
-            const imgs = [...editingProductImgs, ...manual];
-            let sizes = [];
-            Object.keys(editingSizesMap).forEach(k => sizes.push({ name: k, detail: editingSizesMap[k] || 'Standart' }));
-
-            const data = {
-                id: editId ? Number(editId) : Date.now(),
-                title: document.getElementById('newTitle').value,
-                category: document.getElementById('newCategory').value,
-                price: document.getElementById('newPrice').value,
-                imgs: imgs.length ? imgs : ["https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800&auto=format&fit=crop"],
-                desc: document.getElementById('newDesc').value,
-                sizesData: sizes.length ? sizes : [{ name: 'Standart', detail: 'Standart Ölçü' }]
-            };
-
-            if(editId) {
-                const idx = products.findIndex(p => p.id === data.id);
-                if(idx !== -1) products[idx] = data;
-            } else { products.unshift(data); }
-            localStorage.setItem('zerafet_products', JSON.stringify(products));
-            renderAdminProductList();
-            resetProductForm();
-            alert('Ürün kaydedildi!');
-        }
-
-        function editProduct(id) {
-            const p = products.find(x => x.id === id);
-            if(!p) return;
-            document.getElementById('editProductId').value = p.id;
-            document.getElementById('newTitle').value = p.title;
-            document.getElementById('newCategory').value = p.category;
-            document.getElementById('newPrice').value = p.price;
-            document.getElementById('newDesc').value = p.desc;
-            editingProductImgs = p.imgs ? [...p.imgs] : [];
-            editingSizesMap = {};
-            p.sizesData.forEach(s => editingSizesMap[s.name] = s.detail);
-            renderAdminThumbnails();
-            renderEditingSizesUI();
-            switchAdminTab('products');
-        }
-
-        function resetProductForm() {
-            document.getElementById('editProductId').value = '';
-            document.getElementById('newTitle').value = '';
-            document.getElementById('newPrice').value = '';
-            document.getElementById('newImgs').value = '';
-            document.getElementById('newDesc').value = '';
-            editingProductImgs = [];
-            editingSizesMap = {};
-            renderAdminThumbnails();
-            renderEditingSizesUI();
-        }
-
-        function deleteProduct(id) { products = products.filter(p => p.id !== id); localStorage.setItem('zerafet_products', JSON.stringify(products)); renderAdminProductList(); }
-
-        function renderAdminProductList() {
-            document.getElementById('adminProductList').innerHTML = products.map(p => `<div class="flex justify-between items-center bg-stone-50 p-4 rounded-xl border text-sm"><span><b>${p.title}</b> - ${p.price} TL</span><div class="flex gap-2"><button onclick="editProduct(${p.id})" class="bg-amber-100 text-amber-800 px-3 py-1 rounded text-xs">Düzenle</button><button onclick="deleteProduct(${p.id})" class="bg-red-100 text-red-700 px-3 py-1 rounded text-xs">Sil</button></div></div>`).join('');
-        }
-
         // TOUCH VE MOUSE ZOOM EVENTLERİ
         function updateLightboxTransform() { document.getElementById('lightboxImg').style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`; }
 
         window.addEventListener('DOMContentLoaded', () => {
             const c = document.getElementById('lightboxImgContainer');
             if(c) {
-                // Mouse (Bilgisayar) Eventleri
                 c.addEventListener('wheel', (e) => {
                     e.preventDefault();
                     scale = Math.max(1, Math.min(e.deltaY < 0 ? scale * 1.15 : scale / 1.15, 8));
@@ -813,7 +1185,6 @@
                 window.addEventListener('mousemove', (e) => { if(panning) { e.preventDefault(); pointX = e.clientX - startX; pointY = e.clientY - startY; updateLightboxTransform(); }});
                 window.addEventListener('mouseup', () => panning = false);
 
-                // Dokunmatik (Mobil) Eventleri
                 c.addEventListener('touchstart', (e) => {
                     if(e.touches.length === 2) {
                         initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
